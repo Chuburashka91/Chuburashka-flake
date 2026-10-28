@@ -6,7 +6,7 @@ Unit-3, Waybar, Kitty, Zsh/p10k и набор повседневных прил�
 Рассчитана в первую очередь на desktop с NVIDIA, но при замене
 `hardware-configuration.nix` её можно использовать на другом железе.
 
-Демонстрация работы: [YouTube — Unit-3 rice](https://youtu.be/4b-UcpTkHts).
+Демонстрация работы: [YouTube — Unit-3 rice](https://youtu.be/A4TtVeSpz_g?si=lgjyFrrEdhDYHNjT).
 
 ## Основной функционал
 
