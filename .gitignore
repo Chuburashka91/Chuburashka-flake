@@ -1,0 +1,16 @@
+# pi session/runtime (contains conversation; never publish)
+.pi/
+*.jsonl
+
+# local-only Nix modules (personal data / secrets; not for publishing)
+main/core/stoat.nix
+main/home/git.nix
+
+# machine-specific (created by istell.sh on the target)
+main/hardware-configuration.nix
+
+# build artifacts
+/result
+/result-*
+flake.lock.back
+.installer-backup-*/
