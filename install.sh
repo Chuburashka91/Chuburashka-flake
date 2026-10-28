@@ -150,10 +150,10 @@ echo "  пароль: после reboot — sudo passwd $NEW_USER"
 # ── сборка ───────────────────────────────────────────────────────────
 read -rp "Запустить nixos-rebuild boot? [Y/n] " ans
 if [[ ! "$ans" =~ ^[Nn]$ ]]; then
-  nixos-rebuild boot --flake .#default
+  nixos-rebuild boot --flake "path:$SCRIPT_DIR#default"
   echo
   echo "Сборка завершена. Перезагрузитесь: sudo reboot"
 else
   echo
-  echo "Позже: sudo nixos-rebuild boot --flake .#default"
+  echo "Позже: sudo nixos-rebuild boot --flake \"path:$SCRIPT_DIR#default\""
 fi

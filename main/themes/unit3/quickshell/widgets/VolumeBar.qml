@@ -19,7 +19,7 @@ ShellRoot {
     // ── Paramètres ──
     readonly property int segments: 30
     readonly property int hoverWidth: 65
-    readonly property int barWidth: 40
+    readonly property int barWidth: 20
     readonly property int barHeight: 420
     readonly property int leftOffset: 18
     readonly property int hideDelay: 400

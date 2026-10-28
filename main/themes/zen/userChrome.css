@@ -1,0 +1,178 @@
+/* Unit-3 Zen Browser chrome — paper / ink / rust. */
+
+:root {
+  --u3-paper:       #d6cfb5;
+  --u3-paper-2:     #cbc4a9;
+  --u3-paper-3:     #c2baa0;
+  --u3-paper-light: #ded7bf;
+  --u3-ink:         #463f2e;
+  --u3-ink-strong:  #2e2a1f;
+  --u3-ink-soft:    #7a7358;
+  --u3-accent:      #6e2a2a;
+  --u3-line:        rgba(70, 63, 46, 0.25);
+
+  --zen-primary-color:        var(--u3-paper);
+  --zen-secondary-color:      var(--u3-paper-2);
+  --zen-colors-primary:       var(--u3-ink-strong);
+  --zen-colors-secondary:     var(--u3-ink);
+  --zen-colors-tertiary:      var(--u3-ink-soft);
+  --zen-colors-border:        var(--u3-line);
+  --zen-colors-hover:         rgba(70, 63, 46, 0.08);
+  --zen-colors-active:        rgba(110, 42, 42, 0.16);
+  --zen-colors-text:          var(--u3-ink-strong);
+  --zen-colors-accent:        var(--u3-accent);
+
+  --toolbar-bgcolor:                    var(--u3-paper) !important;
+  --toolbar-color:                      var(--u3-ink) !important;
+  --tabpanel-background-color:          var(--u3-paper) !important;
+  --lwt-accent-color:                   var(--u3-paper) !important;
+  --lwt-text-color:                     var(--u3-ink) !important;
+  --lwt-toolbar-field-background-color: var(--u3-paper-2) !important;
+  --lwt-toolbar-field-color:            var(--u3-ink) !important;
+  --lwt-toolbar-field-border-color:     var(--u3-line) !important;
+  --lwt-selected-tab-background-color:  var(--u3-accent) !important;
+
+  --arrowpanel-background:      var(--u3-paper-light) !important;
+  --arrowpanel-color:           var(--u3-ink) !important;
+  --arrowpanel-border-color:    var(--u3-line) !important;
+
+  --urlbar-box-bgcolor:         var(--u3-paper-2) !important;
+  --urlbar-box-focus-bgcolor:   var(--u3-paper-3) !important;
+  --urlbar-box-hover-bgcolor:   var(--u3-paper-3) !important;
+  --urlbar-box-text-color:      var(--u3-ink) !important;
+
+  --sidebar-background-color:   var(--u3-paper-2) !important;
+  --sidebar-text-color:         var(--u3-ink) !important;
+  --sidebar-border-color:       var(--u3-line) !important;
+}
+
+* {
+  border-radius: 0 !important;
+  font-family: "Maple Mono", "Share Tech Mono", monospace !important;
+}
+
+#navigator-toolbox {
+  background-color: var(--u3-paper) !important;
+  background-image:
+    linear-gradient(to right, rgba(70, 63, 46, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(70, 63, 46, 0.06) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+  color: var(--u3-ink) !important;
+  border-bottom: 1px solid var(--u3-line) !important;
+}
+
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  background: transparent !important;
+  color: var(--u3-ink) !important;
+  border-color: var(--u3-line) !important;
+  box-shadow: none !important;
+}
+
+.tabbrowser-tab {
+  color: var(--u3-ink) !important;
+}
+
+.tab-background {
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.tabbrowser-tab[selected] .tab-background {
+  background: var(--u3-paper-3) !important;
+  border: 1px solid var(--u3-line) !important;
+}
+
+.tabbrowser-tab:hover .tab-background {
+  background: rgba(70, 63, 46, 0.08) !important;
+}
+
+#urlbar,
+#urlbar-background,
+#urlbar-input {
+  background: var(--u3-paper-2) !important;
+  color: var(--u3-ink-strong) !important;
+  border: 1px solid var(--u3-line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#urlbar[focused] #urlbar-background {
+  border-color: var(--u3-accent) !important;
+}
+
+#identity-box,
+#tracking-protection-icon-container,
+#page-action-buttons {
+  color: var(--u3-ink-soft) !important;
+}
+
+#sidebar-box,
+#sidebar-header,
+#sidebar {
+  background: var(--u3-paper-2) !important;
+  color: var(--u3-ink) !important;
+  border-color: var(--u3-line) !important;
+}
+
+#sidebar-header {
+  border-bottom: 1px solid var(--u3-line) !important;
+}
+
+#zen-sidebar,
+#zen-appcontent-wrapper,
+#zen-main-app-wrapper {
+  background: var(--u3-paper) !important;
+  color: var(--u3-ink) !important;
+}
+
+#zen-sidebar {
+  border-right: 1px solid var(--u3-line) !important;
+}
+
+toolbarbutton,
+.toolbarbutton-1 {
+  color: var(--u3-ink) !important;
+  border-radius: 0 !important;
+}
+
+toolbarbutton:hover,
+.toolbarbutton-1:hover {
+  background: rgba(70, 63, 46, 0.08) !important;
+  color: var(--u3-ink-strong) !important;
+}
+
+menupopup,
+panel,
+.panel-arrowcontent,
+.arrowpanel {
+  background: var(--u3-paper-light) !important;
+  color: var(--u3-ink) !important;
+  border: 1px solid var(--u3-line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+menuitem,
+menu {
+  color: var(--u3-ink) !important;
+}
+
+menuitem:hover,
+menu:hover {
+  background: var(--u3-accent) !important;
+  color: var(--u3-paper) !important;
+}
+
+#statuspanel-label {
+  background: var(--u3-ink) !important;
+  color: var(--u3-paper) !important;
+  border: 0 !important;
+}
+
+#findbar {
+  background: var(--u3-paper-2) !important;
+  color: var(--u3-ink) !important;
+  border-top: 1px solid var(--u3-line) !important;
+}

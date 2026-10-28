@@ -32,6 +32,7 @@ Item {
                 { keys: "SUPER + E", desc: "Файлы" },
                 { keys: "SUPER + B", desc: "Браузер" },
                 { keys: "SUPER + P", desc: "Обои" },
+                { keys: "SUPER + V", desc: "Буфер обмена" },
                 { keys: "SUPER + Tab", desc: "Панель управления" },
                 { keys: "SUPER + F1", desc: "Справка" }
             ]
@@ -55,7 +56,8 @@ Item {
                 { keys: "SUPER + Q", desc: "Закрыть окно" },
                 { keys: "SUPER + F", desc: "Полный экран" },
                 { keys: "SUPER + Shift + F", desc: "Полный экран (1)" },
-                { keys: "SUPER + V", desc: "Плавающее окно" },
+                { keys: "SUPER + C", desc: "Плавающее окно" },
+                { keys: "SUPER + J", desc: "Сменить ориентацию деления" },
                 { keys: "SUPER + ←↑↓→", desc: "Фокус" },
                 { keys: "ALT + Tab", desc: "Следующее окно" },
                 { keys: "ALT + Shift + Tab", desc: "Предыдущее окно" },

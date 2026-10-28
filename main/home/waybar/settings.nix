@@ -38,6 +38,7 @@
     };
 
     "hyprland/language" = {
+      leght = "30";
       format = "{}";
       format-ru = "RU";
       format-en = "EN";

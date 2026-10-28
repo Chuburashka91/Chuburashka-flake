@@ -1,0 +1,116 @@
+/* Unit-3 clipboard history picker, matching the Quickshell launcher/help. */
+
+* {
+    paper:       #d6cfb5;
+    paper-2:     #cbc4a9;
+    paper-3:     #c2baa0;
+    paper-light: #ded7bf;
+    ink:         #463f2e;
+    ink-strong:  #2e2a1f;
+    ink-soft:    #7a7358;
+    accent:      #6e2a2a;
+    line:        rgba(70, 63, 46, 0.25);
+    line-soft:   rgba(70, 63, 46, 0.12);
+
+    bg-col:      @paper;
+    fg-col:      @ink;
+    fg-strong:   @ink-strong;
+    fg-soft:     @ink-soft;
+    selected-col: @accent;
+    selected-fg:  @paper;
+}
+
+configuration {
+    show-icons: false;
+    font:       "Maple Mono 12";
+    disable-history: true;
+    hide-scrollbar: true;
+}
+
+window {
+    width:           620px;
+    height:          480px;
+    location:        center;
+    anchor:          center;
+    border:          1px;
+    border-radius:   0px;
+    border-color:    @ink;
+    background-color: @paper;
+    padding:         1px;
+}
+
+mainbox {
+    background-color: @paper;
+    spacing:          0px;
+    children:         [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @paper-light;
+    border:           0px;
+    border-color:     @line;
+    padding:          0px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: @accent;
+    text-color:       @paper;
+    padding:          13px 14px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str:    " ";
+}
+
+entry {
+    background-color: @paper-light;
+    text-color:       @ink-strong;
+    padding:          12px 14px;
+}
+
+listview {
+    background-color: @paper;
+    border:           0px;
+    padding:          4px;
+    columns:          1;
+    lines:            12;
+    spacing:          0px;
+    scrollbar:        false;
+    cycle:            true;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @ink;
+    padding:          9px 12px;
+    spacing:          12px;
+    border:           0px;
+    border-radius:    0px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @ink;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @ink;
+}
+
+element selected {
+    background-color: @accent;
+    text-color:       @paper;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
+
+element-icon {
+    size: 0px;
+}

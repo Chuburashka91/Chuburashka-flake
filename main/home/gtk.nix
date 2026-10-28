@@ -42,6 +42,7 @@ in
       extraConfig = {
         gtk-application-prefer-dark-theme = lib.mkForce true;
       };
+      extraCss = builtins.readFile ../themes/gtk/unit3.css;
     };
 
     gtk4 = {
@@ -52,6 +53,7 @@ in
       extraConfig = {
         gtk-application-prefer-dark-theme = lib.mkForce true;
       };
+      extraCss = builtins.readFile ../themes/gtk/unit3.css;
     };
   };
 

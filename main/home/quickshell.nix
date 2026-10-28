@@ -20,6 +20,8 @@ in
 
   # Copy (not symlink) so Unit-3 scripts can write generated files into
   # ~/.config/quickshell (the Nix store is read-only).
+  # Copy in place instead of rm -rf: a running Quickshell must not see
+  # shell.qml disappear during activation and fail its reload.
   home.activation.quickshellConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     set -e
     target="$HOME/.config/quickshell"
@@ -28,9 +30,8 @@ in
     if [ -n "$DRY_RUN_CMD" ]; then
       echo "would refresh $target from $src"
     else
-      rm -rf "$target"
-      mkdir -p "$(dirname "$target")"
-      cp -r "$src" "$target"
+      mkdir -p "$target"
+      cp -r "$src"/. "$target"/
       chmod -R u+rwX "$target"
       chmod u+x "$target"/*.sh
     fi

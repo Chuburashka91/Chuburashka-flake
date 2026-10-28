@@ -1,0 +1,246 @@
+/* Unit-3 GTK theme — paper / ink / rust.
+   Loaded via gtk.gtk3.extraCss / gtk.gtk4.extraCss, so it applies on top
+   of the Colloid theme to Nemo and other GTK apps. */
+
+@define-color u3_paper        #d6cfb5;
+@define-color u3_paper_2      #cbc4a9;
+@define-color u3_paper_3      #c2baa0;
+@define-color u3_paper_light  #ded7bf;
+@define-color u3_ink          #463f2e;
+@define-color u3_ink_strong   #2e2a1f;
+@define-color u3_ink_soft     #7a7358;
+@define-color u3_accent       #6e2a2a;
+@define-color u3_accent_soft  #8a3a3a;
+@define-color u3_line         alpha(@u3_ink, 0.25);
+@define-color u3_line_soft    alpha(@u3_ink, 0.12);
+
+@define-color theme_bg_color              @u3_paper;
+@define-color theme_fg_color              @u3_ink_strong;
+@define-color theme_base_color            @u3_paper_light;
+@define-color theme_text_color            @u3_ink_strong;
+@define-color theme_selected_bg_color     @u3_accent;
+@define-color theme_selected_fg_color     @u3_paper;
+@define-color insensitive_bg_color        @u3_paper_2;
+@define-color insensitive_fg_color        @u3_ink_soft;
+@define-color borders                     @u3_line;
+@define-color theme_unfocused_bg_color    @u3_paper;
+@define-color theme_unfocused_fg_color    @u3_ink;
+@define-color theme_unfocused_base_color  @u3_paper_light;
+@define-color theme_unfocused_text_color  @u3_ink_strong;
+@define-color theme_unfocused_selected_bg_color @u3_accent;
+@define-color theme_unfocused_selected_fg_color @u3_paper;
+@define-color content_view_bg             @u3_paper;
+
+* {
+  border-radius: 0;
+}
+
+window,
+.background {
+  background-color: @theme_bg_color;
+  color: @theme_fg_color;
+}
+
+headerbar,
+.titlebar {
+  background: @u3_paper_light;
+  color: @theme_fg_color;
+  border-bottom: 1px solid @u3_line;
+  box-shadow: none;
+}
+
+headerbar button,
+.titlebar button {
+  background: @u3_paper_2;
+  color: @u3_ink;
+  border: 1px solid @u3_line;
+}
+
+button {
+  background: @u3_paper_2;
+  color: @u3_ink;
+  border: 1px solid @u3_line;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+button:hover {
+  background: alpha(@u3_ink, 0.08);
+  color: @u3_ink_strong;
+}
+
+button:checked,
+button:active {
+  background: @u3_accent;
+  color: @u3_paper;
+  border-color: @u3_accent;
+}
+
+entry,
+.entry,
+textview,
+treeview,
+.view {
+  background: @theme_base_color;
+  color: @theme_text_color;
+  border: 1px solid @u3_line;
+}
+
+entry:focus,
+textview:focus,
+treeview:focus {
+  border-color: @u3_accent;
+}
+
+treeview:selected,
+.view:selected,
+flowboxchild:selected {
+  background: @u3_accent;
+  color: @u3_paper;
+}
+
+treeview:hover,
+.view:hover {
+  background: alpha(@u3_ink, 0.06);
+}
+
+.sidebar,
+placessidebar,
+.nemo-places-sidebar,
+.nemo-window .sidebar {
+  background: @u3_paper_2;
+  color: @u3_ink;
+  border-right: 1px solid @u3_line;
+}
+
+.nemo-pathbar,
+.nemo-pathbar button,
+.nemo-window .toolbar {
+  background: @u3_paper_3;
+  color: @u3_ink;
+  border-color: @u3_line;
+}
+
+.nemo-window .view {
+  background: @u3_paper_light;
+}
+
+.nemo-window .nemo-file-row:hover,
+.nemo-window .nemo-file-row:selected {
+  background: alpha(@u3_ink, 0.08);
+}
+
+.nemo-window .nemo-file-row:selected {
+  background: alpha(@u3_accent, 0.18);
+  color: @u3_ink_strong;
+}
+
+.nemo-window .statusbar,
+.nemo-window .searchbar {
+  background: @u3_paper_2;
+  color: @u3_ink;
+  border-color: @u3_line;
+}
+
+separator,
+.sidebar-separator {
+  background: @u3_line;
+}
+
+scrollbar {
+  background: transparent;
+  border: none;
+}
+
+scrollbar slider {
+  background: @u3_ink_soft;
+  border: 1px solid @u3_paper;
+  min-width: 8px;
+  min-height: 8px;
+}
+
+scrollbar slider:hover {
+  background: @u3_accent;
+}
+
+menu,
+.menu,
+popover,
+popover.background {
+  background: @u3_paper_light;
+  color: @u3_ink;
+  border: 1px solid @u3_line;
+}
+
+menuitem,
+menu menuitem {
+  color: @u3_ink;
+}
+
+menuitem:hover,
+menu menuitem:hover {
+  background: @u3_accent;
+  color: @u3_paper;
+}
+
+tooltip,
+tooltip.background {
+  background: @u3_ink;
+  color: @u3_paper;
+  border: 1px solid @u3_paper;
+}
+
+notebook,
+notebook > header {
+  background: @u3_paper_2;
+  border-color: @u3_line;
+}
+
+notebook tab {
+  background: @u3_paper_3;
+  color: @u3_ink;
+  border: 1px solid @u3_line;
+}
+
+notebook tab:checked {
+  background: @u3_accent;
+  color: @u3_paper;
+}
+
+progressbar progress {
+  background: @u3_accent;
+}
+
+progressbar trough {
+  background: @u3_paper_3;
+}
+
+link,
+*:link {
+  color: @u3_accent;
+}
+
+selection,
+*:selected {
+  background: @u3_accent;
+  color: @u3_paper;
+}
+
+*:focus {
+  outline-color: @u3_accent;
+  outline-style: solid;
+  outline-width: 1px;
+}
+
+toolbar,
+.toolbar {
+  background: @u3_paper;
+  color: @u3_ink;
+  border-color: @u3_line;
+}
+
+statusbar,
+.statusbar {
+  background: @u3_paper_2;
+  color: @u3_ink;
+}

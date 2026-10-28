@@ -26,6 +26,7 @@
       "$mod, Return, exec, kitty" # player skipped
       "$mod, B, exec, zen-beta"
       "$mod, P, exec, /home/${username}/.config/quickshell/wallpaper.sh"
+      "$mod, V, exec, clipboard"
       # "$mod, M, exec, pgrep -x spotify >/dev/null && hyprctl dispatch togglespecialworkspace spotify || spotify"
 
       # ── L2: Quickshell app menu on SUPER+D (was rofi) ──
@@ -35,7 +36,8 @@
       # ── Window management ─────────────────────────────
       "$mod, Q, killactive"
       "$mod, F, fullscreen"
-      "$mod, V, togglefloating"
+      "$mod, C, togglefloating"
+      "$mod, J, layoutmsg, togglesplit"
       "$mod, Escape, exit"
       "$mod SHIFT, F, fullscreen, 1"
 

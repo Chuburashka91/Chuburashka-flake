@@ -11,7 +11,10 @@
       numlock_by_default = true;
       repeat_delay = 300;
 
-      follow_mouse = 1;
+      # 2 = pointer focus follows the window under the cursor, but keyboard
+      # focus stays put until a click. Scroll goes to the hovered window.
+      follow_mouse = 2;
+      float_switch_override_focus = 0;
       sensitivity = 0;
 
       touchpad = {

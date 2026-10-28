@@ -1,0 +1,517 @@
+/**
+ * @name Unit-3
+ * @description Paper / ink / rust theme matching the Quickshell launcher and help overlay.
+ * @author Unit-3 rice
+ * @version 1.0.0
+ */
+
+/* ── Palette ─────────────────────────────────────────────────────── */
+
+:root {
+  --u3-paper:       #d6cfb5;
+  --u3-paper-2:     #cbc4a9;
+  --u3-paper-3:     #c2baa0;
+  --u3-paper-4:     #b9b096;
+  --u3-paper-light: #ded7bf;
+  --u3-ink:         #463f2e;
+  --u3-ink-strong:  #2e2a1f;
+  --u3-ink-soft:    #7a7358;
+  --u3-accent:      #6e2a2a;
+  --u3-accent-soft: #8a3a3a;
+  --u3-line:        rgba(70, 63, 46, 0.25);
+  --u3-line-soft:   rgba(70, 63, 46, 0.12);
+  --u3-green:       #4f7a5a;
+  --u3-gold:        #a07a2a;
+
+  color-scheme: light;
+  accent-color: var(--u3-accent);
+
+  /* Core surfaces */
+  --background-primary:          rgba(214, 207, 181, 0.96);
+  --background-primary-alt:      rgba(214, 207, 181, 0.96);
+  --background-secondary:        rgba(203, 196, 169, 0.96);
+  --background-secondary-alt:    rgba(194, 186, 160, 0.96);
+  --background-tertiary:         rgba(185, 176, 150, 0.96);
+  --background-accent:           var(--u3-accent);
+  --background-floating:         var(--u3-paper-light);
+  --background-nested-floating:  var(--u3-paper);
+  --background-mobile-primary:   var(--u3-paper);
+  --background-mobile-secondary: var(--u3-paper-2);
+  --background-code:             rgba(70, 63, 46, 0.08);
+  --background-code-addition:    rgba(79, 122, 90, 0.12);
+  --background-code-deletion:    rgba(110, 42, 42, 0.12);
+  --input-background:            rgba(203, 196, 169, 0.96);
+  --channeltextarea-background:  rgba(203, 196, 169, 0.96);
+  --modal-background:            var(--u3-paper);
+  --modal-footer-background:     var(--u3-paper-2);
+  --background-message-hover:    rgba(70, 63, 46, 0.06);
+  --background-mentioned:        rgba(110, 42, 42, 0.10);
+  --background-mentioned-hover:  rgba(110, 42, 42, 0.16);
+
+  /* Modern design tokens used by recent Discord builds */
+  --bg-base-primary:    var(--background-primary);
+  --bg-base-secondary:  var(--background-secondary);
+  --bg-base-tertiary:   var(--background-tertiary);
+  --bg-surface-overlay: var(--background-floating);
+  --bg-surface-raised:  var(--background-secondary);
+  --bg-surface-highest: var(--background-tertiary);
+  --bg-surface-lowest:  var(--background-primary);
+  --bg-surface-default: var(--background-primary);
+
+  /* Modifiers */
+  --background-modifier-hover:          rgba(70, 63, 46, 0.08);
+  --background-modifier-active:         rgba(70, 63, 46, 0.14);
+  --background-modifier-selected:       rgba(110, 42, 42, 0.16);
+  --background-modifier-accent:         rgba(70, 63, 46, 0.18);
+  --background-modifier-border:         var(--u3-line);
+  --background-modifier-border-hover:   rgba(70, 63, 46, 0.35);
+  --background-modifier-border-focus:   var(--u3-accent);
+  --background-modifier-cover:          rgba(46, 42, 31, 0.55);
+
+  /* Text */
+  --text-normal:                var(--u3-ink-strong);
+  --text-muted:                 var(--u3-ink-soft);
+  --text-default:               var(--u3-ink-strong);
+  --text-strong:                var(--u3-ink-strong);
+  --text-subtle:                var(--u3-ink-soft);
+  --text-primary:               var(--u3-ink-strong);
+  --text-secondary:             var(--u3-ink);
+  --text-tertiary:              var(--u3-ink-soft);
+  --text-link:                  var(--u3-accent);
+  --text-link-low-saturation:   var(--u3-accent);
+  --text-brand:                 var(--u3-accent);
+  --text-positive:              var(--u3-green);
+  --text-warning:               var(--u3-gold);
+  --text-danger:                var(--u3-accent);
+  --header-primary:             var(--u3-ink-strong);
+  --header-secondary:           var(--u3-ink);
+  --interactive-normal:         var(--u3-ink);
+  --interactive-hover:          var(--u3-ink-strong);
+  --interactive-active:         var(--u3-accent);
+  --interactive-muted:          #9a9278;
+  --channels-default:           var(--u3-ink);
+  --channel-icon:               var(--u3-accent);
+
+  /* Older Discord text tokens used by some components */
+  --primary-100: var(--u3-ink-strong);
+  --primary-200: var(--u3-ink);
+  --primary-300: var(--u3-ink-soft);
+  --white:       var(--u3-ink-strong);
+  --white-500:   var(--u3-ink-strong);
+  --white-400:   var(--u3-ink);
+  --white-300:   var(--u3-ink-soft);
+
+  /* Brand / accent */
+  --brand-experiment:     var(--u3-accent);
+  --brand-experiment-100: var(--u3-paper);
+  --brand-experiment-200: #b85a5a;
+  --brand-experiment-300: #a04a4a;
+  --brand-experiment-400: var(--u3-accent-soft);
+  --brand-experiment-500: var(--u3-accent);
+  --brand-experiment-560: var(--u3-accent);
+  --brand-experiment-600: #5a2222;
+  --brand-experiment-700: #4a1a1a;
+  --brand-experiment-800: #3a1414;
+  --brand-experiment-900: #2e1010;
+  --focus-primary:        var(--u3-accent);
+
+  /* Status */
+  --status-green:  var(--u3-green);
+  --status-yellow: var(--u3-gold);
+  --status-red:    var(--u3-accent);
+  --status-grey:   #9a9278;
+
+  /* Borders / corners */
+  --border-subtle: var(--u3-line);
+  --border-strong: rgba(70, 63, 46, 0.35);
+  --border-muted:  var(--u3-line-soft);
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-xxl: 0;
+  --radius-round: 0;
+
+  /* Scrollbars */
+  --scrollbar-thin-thumb:   #9a9278;
+  --scrollbar-thin-track:   transparent;
+  --scrollbar-auto-thumb:   #9a9278;
+  --scrollbar-auto-track:   rgba(214, 207, 181, 0.4);
+
+  /* Type */
+  --font-primary: "Maple Mono", "Share Tech Mono", monospace;
+  --font-display: "Maple Mono", "Share Tech Mono", monospace;
+  --font-code:    "Maple Mono", "Share Tech Mono", monospace;
+}
+
+/* ── Base ───────────────────────────────────────────────────────── */
+
+* {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+html,
+body {
+  font-family: var(--font-primary) !important;
+  letter-spacing: 0.01em;
+}
+
+#app-mount {
+  background-color: var(--u3-paper) !important;
+  background-image:
+    linear-gradient(to right, var(--u3-line-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--u3-line-soft) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+}
+
+::selection {
+  background: var(--u3-accent);
+  color: var(--u3-paper);
+}
+
+a {
+  color: var(--u3-accent) !important;
+}
+
+/* ── Structure ──────────────────────────────────────────────────── */
+
+[class*="guilds"] {
+  background: var(--u3-paper-4) !important;
+  border-right: 1px solid var(--u3-line) !important;
+}
+
+[class*="sidebar"] {
+  background: var(--u3-paper-2) !important;
+  border-right: 1px solid var(--u3-line) !important;
+}
+
+[class*="privateChannels"] {
+  background: var(--u3-paper-2) !important;
+  border-right: 1px solid var(--u3-line) !important;
+}
+
+/* Channel list internals: containers/scrollers must not keep the stock dark
+   background, and the header/categories/icons/hover/selected need the
+   paper+ink palette. */
+[class*="sidebar"] [class*="container"],
+[class*="sidebar"] [class*="scroller"],
+[class*="privateChannels"] [class*="container"],
+[class*="privateChannels"] [class*="scroller"] {
+  background: transparent !important;
+}
+
+[class*="sidebar"] [class*="header"] {
+  background: var(--u3-paper-3) !important;
+  border-bottom: 1px solid var(--u3-line) !important;
+}
+
+[class*="sidebar"] [class*="channel"],
+[class*="privateChannels"] [class*="channel"] {
+  color: var(--u3-ink) !important;
+}
+
+[class*="sidebar"] [class*="channel"]:hover,
+[class*="privateChannels"] [class*="channel"]:hover {
+  background: var(--background-modifier-hover) !important;
+  color: var(--u3-ink-strong) !important;
+}
+
+[class*="sidebar"] [class*="channel"][class*="selected"],
+[class*="privateChannels"] [class*="channel"][class*="selected"] {
+  background: var(--background-modifier-selected) !important;
+  border-left: 2px solid var(--u3-accent) !important;
+  color: var(--u3-ink-strong) !important;
+}
+
+[class*="sidebar"] [class*="category"],
+[class*="privateChannels"] [class*="category"] {
+  color: var(--u3-ink-soft) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+[class*="sidebar"] [class*="icon"],
+[class*="privateChannels"] [class*="icon"] {
+  color: var(--u3-ink-soft) !important;
+}
+
+[class*="guilds"] [class*="scroller"],
+[class*="guilds"] [class*="listItem"] {
+  background: transparent !important;
+}
+
+[class*="guilds"] [class*="listItem"]:hover {
+  background: var(--background-modifier-hover) !important;
+}
+
+/* Some Discord containers use `container__<hash>`; the hash changes, the
+   prefix does not.  Higher-specificity sidebar/bar rules above still win. */
+[class^="container__"],
+[class*=" container__"] {
+  background: var(--u3-paper) !important;
+  color: var(--u3-ink) !important;
+}
+
+[class*="chat"] {
+  background: var(--u3-paper) !important;
+  border-left: 1px solid var(--u3-line-soft) !important;
+  border-right: 1px solid var(--u3-line-soft) !important;
+}
+
+[class*="members"] {
+  background: var(--u3-paper-2) !important;
+  border-left: 1px solid var(--u3-line) !important;
+}
+
+[class*="panels"] {
+  background: var(--u3-paper-3) !important;
+  border-top: 1px solid var(--u3-line) !important;
+}
+
+/* Vesktop/Discord top bar (`bar_c38106`; the suffix changes on updates). */
+[class^="bar_"],
+[class^="bar_"].theme-dark,
+[class^="bar_"].theme-midnight {
+  --background-tertiary: var(--u3-paper-light);
+  --bg-base-tertiary:    var(--u3-paper-light);
+  --text-normal:         var(--u3-ink);
+  --text-default:        var(--u3-ink);
+  --text-strong:         var(--u3-ink-strong);
+  --header-primary:      var(--u3-ink-strong);
+  --interactive-normal:  var(--u3-ink);
+  --interactive-hover:   var(--u3-ink-strong);
+  --interactive-active:  var(--u3-accent);
+  background: var(--u3-paper-light) !important;
+  color: var(--u3-ink) !important;
+  border-bottom: 1px solid var(--u3-line) !important;
+}
+
+[class^="bar_"] [class*="container"] {
+  background: transparent !important;
+}
+
+[class^="bar_"] [class*="icon"] {
+  color: var(--u3-ink-soft) !important;
+}
+
+[class^="bar_"] [class*="icon"]:hover {
+  color: var(--u3-accent) !important;
+}
+
+[class^="bar_"] [class*="title"] {
+  color: var(--u3-ink-strong) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+[class^="subtitleContainer_"] {
+  background: var(--u3-paper-3) !important;
+  color: var(--u3-ink) !important;
+}
+
+[class^="scrollableContainer_"],
+[class^="themedBackground_"] {
+  background: var(--u3-paper-2) !important;
+  color: var(--u3-ink) !important;
+}
+
+[class*="titleBar"],
+[class*="headerBar"] {
+  background: var(--u3-paper) !important;
+  border-bottom: 1px solid var(--u3-line) !important;
+}
+
+[class*="titleBar"] [class*="title"],
+[class*="headerBar"] [class*="name"],
+[class*="channelName"] {
+  font-family: var(--font-primary) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+[class*="guilds"] [class*="selected"],
+[class*="sidebar"] [class*="selected"] {
+  background: var(--background-modifier-selected) !important;
+  border-left: 2px solid var(--u3-accent) !important;
+  color: var(--u3-ink-strong) !important;
+}
+
+[class*="unread"] {
+  background: var(--u3-accent) !important;
+  color: var(--u3-paper) !important;
+}
+
+/* ── Messages ───────────────────────────────────────────────────── */
+
+[class*="message"]:hover {
+  background: var(--background-message-hover) !important;
+}
+
+[class*="mentioned"] {
+  background: var(--background-mentioned) !important;
+  border-left: 2px solid var(--u3-accent) !important;
+}
+
+[class*="mention"] {
+  background: rgba(110, 42, 42, 0.15) !important;
+  color: var(--u3-accent) !important;
+}
+
+/* Unread-mentions indicators: red bar, light icon/text. */
+[class^="unreadMentionsIndicatorTop_"],
+[class^="unreadMentionsIndicatorBottom_"],
+[class^="unreadMentionsFixedFooter_"],
+[class^="bar__3b95d"],
+[class^="unreadMentionsBar_"],
+[class^="mention__3b95d"],
+[class^="active__3b95d"] {
+  background: var(--u3-accent) !important;
+  color: var(--u3-paper) !important;
+  fill: var(--u3-paper) !important;
+}
+
+[class^="unreadMentionsIndicatorTop_"] svg,
+[class^="unreadMentionsIndicatorTop_"] svg *,
+[class^="unreadMentionsIndicatorBottom_"] svg,
+[class^="unreadMentionsIndicatorBottom_"] svg *,
+[class^="unreadMentionsFixedFooter_"] svg,
+[class^="unreadMentionsFixedFooter_"] svg *,
+[class^="bar__3b95d"] svg,
+[class^="bar__3b95d"] svg *,
+[class^="unreadMentionsBar_"] svg,
+[class^="unreadMentionsBar_"] svg *,
+[class^="mention__3b95d"] svg,
+[class^="mention__3b95d"] svg *,
+[class^="active__3b95d"] svg,
+[class^="active__3b95d"] svg *,
+[class^="unreadMentionsIndicatorTop_"] [class*="icon"],
+[class^="unreadMentionsIndicatorBottom_"] [class*="icon"],
+[class^="unreadMentionsFixedFooter_"] [class*="icon"],
+[class^="bar__3b95d"] [class*="icon"],
+[class^="unreadMentionsBar_"] [class*="icon"],
+[class^="mention__3b95d"] [class*="icon"],
+[class^="active__3b95d"] [class*="icon"] {
+  color: var(--u3-paper) !important;
+  fill: var(--u3-paper) !important;
+  stroke: var(--u3-paper) !important;
+}
+
+[class*="embed"] {
+  background: rgba(70, 63, 46, 0.05) !important;
+  border-left: 2px solid var(--u3-accent) !important;
+}
+
+[class*="reaction"] {
+  background: var(--u3-paper-2) !important;
+  border: 1px solid var(--u3-line) !important;
+}
+
+[class*="spoiler"] {
+  background: var(--u3-ink) !important;
+}
+
+[class*="divider"] {
+  border-color: var(--u3-line) !important;
+}
+
+[class^="body_"],
+[class^="section_"] {
+  color: var(--u3-ink) !important;
+}
+
+[class^="body_"] [class*="text"],
+[class^="section_"] [class*="text"] {
+  color: var(--u3-ink) !important;
+}
+
+/* ── Inputs / buttons ───────────────────────────────────────────── */
+
+[class*="textArea"],
+[class*="textbox"],
+[class*="input"],
+[class*="slate"] {
+  background: var(--input-background) !important;
+  color: var(--u3-ink-strong) !important;
+  border: 1px solid var(--u3-line) !important;
+}
+
+[class*="textArea"]:focus,
+[class*="textbox"]:focus,
+[class*="input"]:focus {
+  border-color: var(--u3-accent) !important;
+}
+
+button,
+[class*="button"] {
+  font-family: var(--font-primary) !important;
+  letter-spacing: 0.04em;
+}
+
+[class*="lookFilled"] {
+  background: var(--u3-accent) !important;
+  color: var(--u3-paper) !important;
+  border: 1px solid var(--u3-accent) !important;
+}
+
+[class*="lookFilled"]:hover {
+  background: var(--u3-accent-soft) !important;
+}
+
+[class^="secondary_"] {
+  background: var(--u3-paper-2) !important;
+  color: var(--u3-ink) !important;
+  border: 1px solid var(--u3-line) !important;
+}
+
+[class^="secondary_"]:hover {
+  background: var(--u3-paper-3) !important;
+  color: var(--u3-ink-strong) !important;
+}
+
+/* ── Code ───────────────────────────────────────────────────────── */
+
+code,
+pre,
+[class*="codeBlock"] {
+  background: var(--background-code) !important;
+  color: var(--u3-ink-strong) !important;
+  border: 1px solid var(--u3-line) !important;
+  font-family: var(--font-code) !important;
+}
+
+/* ── Modals / popouts / menus ───────────────────────────────────── */
+
+[class*="modal"],
+[class*="popout"],
+[class*="menu"] {
+  background: var(--u3-paper-light) !important;
+  border: 1px solid var(--u3-ink) !important;
+}
+
+[class*="tooltip"] {
+  background: var(--u3-ink) !important;
+  color: var(--u3-paper) !important;
+  border: 1px solid var(--u3-paper) !important;
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--u3-ink-soft);
+  border: 1px solid var(--u3-paper);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--u3-accent);
+}

@@ -1,0 +1,89 @@
+/* Unit-3 styles for Zen/Firefox about: pages. Web sites are not touched. */
+
+@-moz-document url("about:newtab"),
+               url("about:home"),
+               url("about:preferences"),
+               url("about:preferences#general"),
+               url("about:addons"),
+               url("about:config"),
+               url("about:downloads") {
+  :root,
+  body,
+  #root,
+  .main-content,
+  .sticky-container,
+  .top-sites,
+  .search-wrapper,
+  .search-handoff-button {
+    background-color: #d6cfb5 !important;
+    color: #2e2a1f !important;
+    border-radius: 0 !important;
+  }
+
+  * {
+    border-radius: 0 !important;
+    font-family: "Maple Mono", "Share Tech Mono", monospace !important;
+    box-shadow: none !important;
+  }
+
+  a,
+  .top-site-button .title,
+  .search-handoff-button {
+    color: #6e2a2a !important;
+  }
+
+  .search-handoff-button,
+  .search-wrapper input,
+  input,
+  textarea,
+  select {
+    background: #cbc4a9 !important;
+    border: 1px solid rgba(70, 63, 46, 0.25) !important;
+    color: #2e2a1f !important;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #6e2a2a !important;
+  }
+
+  .top-site-button:hover,
+  .card:hover,
+  button:hover {
+    background: rgba(70, 63, 46, 0.08) !important;
+  }
+
+  button,
+  .button {
+    background: #cbc4a9 !important;
+    color: #2e2a1f !important;
+    border: 1px solid rgba(70, 63, 46, 0.25) !important;
+  }
+
+  button:enabled:hover,
+  .button:hover {
+    background: #c2baa0 !important;
+    color: #2e2a1f !important;
+  }
+
+  .selected,
+  [selected],
+  ::selection {
+    background: #6e2a2a !important;
+    color: #d6cfb5 !important;
+  }
+
+  hr,
+  .separator,
+  separator {
+    border-color: rgba(70, 63, 46, 0.25) !important;
+  }
+
+  .category,
+  .sidebar-footer-list,
+  .sidebar-header {
+    background: #cbc4a9 !important;
+    color: #2e2a1f !important;
+  }
+}
