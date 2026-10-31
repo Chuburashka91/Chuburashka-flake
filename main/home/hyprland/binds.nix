@@ -25,6 +25,7 @@
       "$mod, T, exec, kitty"
       "$mod, Return, exec, kitty" # player skipped
       "$mod, B, exec, zen-beta"
+      "$mod SHIFT, B, exec, env BTOP_OPACITY=0.85 btop-paper"
       "$mod, P, exec, /home/${username}/.config/quickshell/wallpaper.sh"
       "$mod, V, exec, clipboard"
       # "$mod, M, exec, pgrep -x spotify >/dev/null && hyprctl dispatch togglespecialworkspace spotify || spotify"
@@ -71,7 +72,7 @@
       "$mod ALT, down, movewindow, d"
 
       # ── Special workspace ─────────────────────────────
-      "$mod SHIFT, S, movetoworkspace, special:magic"
+      "$mod ALT, S, movetoworkspace, special:magic"
       "$mod, S, togglespecialworkspace, magic"
 
       # ── Workspaces (ALT + number) ─────────────────────
@@ -103,7 +104,7 @@
       "$mod, mouse_up, workspace, e-1"
 
       # ── Screenshots (use the existing screenshot helper) ──
-      "ALT SHIFT, S, exec, screenshot --copy"
+      "$mod SHIFT, S, exec, screenshot --copy"
       ", Print, exec, screenshot --save"
     ];
 

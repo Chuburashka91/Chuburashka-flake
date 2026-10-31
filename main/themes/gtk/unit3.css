@@ -35,6 +35,17 @@
   border-radius: 0;
 }
 
+/* Let labels follow the widget colour instead of Colloid's hardcoded
+   white text. This fixes white-on-beige and grey-on-grey states. */
+label {
+  color: inherit;
+}
+
+label:disabled,
+*:disabled label {
+  color: @insensitive_fg_color;
+}
+
 window,
 .background {
   background-color: @theme_bg_color;
@@ -92,6 +103,15 @@ treeview:focus {
   border-color: @u3_accent;
 }
 
+/* Also style the inner text node, otherwise GTK Inspector's CSS editor
+   can inherit a dark-on-dark style from the base theme. */
+textview text,
+textview.view text,
+.sourceview text {
+  background: @u3_paper_light;
+  color: @u3_ink_strong;
+}
+
 treeview:selected,
 .view:selected,
 flowboxchild:selected {
@@ -99,9 +119,34 @@ flowboxchild:selected {
   color: @u3_paper;
 }
 
+treeview:selected label,
+.view:selected label,
+flowboxchild:selected label {
+  color: @u3_paper;
+  font-weight: bold;
+}
+
 treeview:hover,
 .view:hover {
-  background: alpha(@u3_ink, 0.06);
+  background: alpha(@u3_ink, 0.08);
+  color: @u3_ink_strong;
+}
+
+/* GtkTreeView / GtkIconView rubber-band selection. */
+rubberband,
+.rubberband,
+treeview rubberband,
+iconview rubberband,
+flowbox rubberband {
+  background-image: none;
+  background-color: alpha(@u3_accent, 0.18);
+  border: 1px solid @u3_accent;
+}
+
+.nemo-window .rubberband,
+.nemo-window .view.rubberband {
+  background-color: rgba(139, 115, 85, 0.3);
+  border: 1px solid #6B5A45;
 }
 
 .sidebar,
@@ -111,6 +156,13 @@ placessidebar,
   background: @u3_paper_2;
   color: @u3_ink;
   border-right: 1px solid @u3_line;
+}
+
+placessidebar row:hover,
+.nemo-places-sidebar row:hover,
+.sidebar row:hover {
+  background: alpha(@u3_ink, 0.08);
+  color: @u3_ink_strong;
 }
 
 .nemo-pathbar,
@@ -128,11 +180,23 @@ placessidebar,
 .nemo-window .nemo-file-row:hover,
 .nemo-window .nemo-file-row:selected {
   background: alpha(@u3_ink, 0.08);
+  color: @u3_ink_strong;
 }
 
 .nemo-window .nemo-file-row:selected {
-  background: alpha(@u3_accent, 0.18);
-  color: @u3_ink_strong;
+  background: @u3_accent;
+  color: @u3_paper;
+  font-weight: bold;
+}
+
+.nemo-window .nemo-file-row:selected label {
+  color: @u3_paper;
+  font-weight: bold;
+}
+
+.nemo-canvas-item:selected {
+  background-color: rgba(139, 115, 85, 0.8);
+  color: #f5f0e6;
 }
 
 .nemo-window .statusbar,
@@ -163,6 +227,43 @@ scrollbar slider:hover {
   background: @u3_accent;
 }
 
+menubar,
+.menubar {
+  background: @u3_paper;
+  background-image: none;
+  color: @u3_ink_soft;
+  border: none;
+  border-bottom: 1px solid @u3_line;
+  box-shadow: none;
+}
+
+menubar > menuitem,
+.menubar > menuitem,
+menubar menuitem,
+.menubar menuitem {
+  background: transparent;
+  color: @u3_ink_strong;
+  border: none;
+  box-shadow: none;
+}
+
+menubar > menuitem:disabled,
+.menubar > menuitem:disabled,
+menubar menuitem:disabled,
+.menubar menuitem:disabled {
+  color: @u3_ink_soft;
+}
+
+menubar > menuitem:hover,
+menubar > menuitem:selected,
+menubar > menuitem:active,
+.menubar > menuitem:hover,
+.menubar > menuitem:selected,
+.menubar > menuitem:active {
+  background: @u3_accent;
+  color: @u3_paper;
+}
+
 menu,
 .menu,
 popover,
@@ -174,7 +275,91 @@ popover.background {
 
 menuitem,
 menu menuitem {
-  color: @u3_ink;
+  color: @u3_ink_strong;
+}
+
+menuitem:disabled,
+menu menuitem:disabled {
+  color: @u3_ink_soft;
+}
+
+/* Some menu items wrap the label in a GtkBox.horizontal node. Colloid's
+   .horizontal rule otherwise wins and leaves the text light grey. */
+menuitem > box.horizontal {
+  color: #242322;
+}
+
+menuitem > box.horizontal > label,
+menuitem > box.horizontal label {
+  color: #242322;
+}
+
+menuitem:hover > box.horizontal,
+menuitem:selected > box.horizontal {
+  background: @u3_accent;
+  background-image: none;
+  color: @u3_paper;
+}
+
+menuitem:hover > box.horizontal > label,
+menuitem:hover > box.horizontal label,
+menuitem:selected > box.horizontal > label,
+menuitem:selected > box.horizontal label {
+  color: @u3_paper;
+}
+
+menuitem:disabled > box.horizontal,
+menuitem:insensitive > box.horizontal {
+  color: @u3_ink_soft;
+}
+
+menuitem:disabled > box.horizontal > label,
+menuitem:disabled > box.horizontal label,
+menuitem:insensitive > box.horizontal > label,
+menuitem:insensitive > box.horizontal label {
+  color: @u3_ink_soft;
+}
+
+menubar menuitem label,
+.menubar menuitem label,
+menu menuitem label,
+.menu menuitem label,
+modelbutton label {
+  color: inherit;
+  text-decoration-color: currentColor;
+}
+
+menubar menuitem:disabled label,
+.menubar menuitem:disabled label,
+menu menuitem:disabled label,
+.menu menuitem:disabled label,
+modelbutton:disabled label {
+  color: @u3_ink_soft;
+  text-decoration-color: @u3_ink_soft;
+}
+
+menubar menuitem accelerator,
+.menubar menuitem accelerator,
+menu menuitem accelerator,
+.menu menuitem accelerator {
+  color: @u3_ink_soft;
+  text-decoration-color: currentColor;
+}
+
+modelbutton,
+.modelbutton {
+  color: @u3_ink_strong;
+}
+
+modelbutton:disabled,
+.modelbutton:disabled {
+  color: @u3_ink_soft;
+}
+
+modelbutton:hover,
+.modelbutton:hover {
+  background: @u3_accent;
+  color: @u3_paper;
 }
 
 menuitem:hover,
@@ -205,6 +390,20 @@ notebook tab {
 notebook tab:checked {
   background: @u3_accent;
   color: @u3_paper;
+}
+
+spinbutton,
+spinbutton entry,
+spinbutton text,
+cellview {
+  color: @u3_ink_strong;
+}
+
+/* GIMP's spin scale sits on alternating grey/beige surfaces. */
+GimpSpinScale,
+GimpSpinScale entry,
+GimpSpinScale text {
+  color: #000000;
 }
 
 progressbar progress {

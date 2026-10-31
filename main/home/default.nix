@@ -4,6 +4,7 @@
     [
       ./cli
       ./bat.nix
+      ./btop.nix
       ./browser.nix
       ./direnv.nix
       ./discord.nix

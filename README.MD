@@ -172,7 +172,7 @@ install.sh                 # установщик для чистой NixOS
 main/
 ├── core/                 # NixOS-модули (system, users, docker, pi, sops, ...)
 ├── home/                 # Home Manager (hyprland, waybar, quickshell, apps)
-├── themes/               # темы Unit-3, GTK, Vencord и Zen
+├── themes/               # темы Unit-3, GTK, Vencord, Zen и btop
 └── hardware-configuration.nix
 secrets/                  # sops-зашифрованные секреты
 ```
@@ -379,7 +379,7 @@ install.sh                # installer for a clean NixOS
 main/
 ├── core/                 # NixOS modules (system, users, docker, pi, sops, ...)
 ├── home/                 # Home Manager (hyprland, waybar, quickshell, apps)
-├── themes/               # Unit-3, GTK, Vencord and Zen themes
+├── themes/               # Unit-3, GTK, Vencord, Zen and btop themes
 └── hardware-configuration.nix
 secrets/                  # sops-encrypted secrets
 ```

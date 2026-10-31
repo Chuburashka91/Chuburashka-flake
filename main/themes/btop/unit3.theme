@@ -1,0 +1,96 @@
+# Unit-3 btop theme — paper / ink / rust, brighter accents.
+# Every btop theme key is written out explicitly so it is easy to tweak.
+# Palette:
+#   paper       #d6cfb5    main background
+#   paper-2     #cbc4a9    secondary surface
+#   paper-3     #c2baa0    selected surface
+#   paper-4     #b9b096    dividers
+#   paper-light #ded7bf    light surface
+#   ink         #463f2e    normal text
+#   ink-strong  #2e2a1f    primary text
+#   ink-soft    #8a8068    muted text
+#   accent      #b5443f    brighter rust
+#   accent-soft #c45a55    light rust
+#   green       #6f9f73    positive
+#   gold        #c4953a    warning
+
+# Main background, empty for terminal default; keep set for the paper look.
+theme[main_bg]="#d6cfb5"
+
+# Main text color.
+theme[main_fg]="#2e2a1f"
+
+# Title color for boxes.
+theme[title]="#b5443f"
+
+# Highlight color for keyboard shortcuts.
+theme[hi_fg]="#b5443f"
+
+# Background color of selected items.
+theme[selected_bg]="#b5443f"
+
+# Foreground color of selected items.
+theme[selected_fg]="#f4ecd8"
+
+# Color of inactive/disabled text.
+theme[inactive_fg]="#8a8068"
+
+# Text on top of graphs (uptime, network graph scaling, etc.).
+theme[graph_text]="#8a8068"
+
+# Misc colors for the processes box: mini CPU graphs, memory graph, status text.
+theme[proc_misc]="#c45a55"
+
+# Box outline colors.
+theme[cpu_box]="#b9a98a"
+theme[mem_box]="#b9a98a"
+theme[net_box]="#b9a98a"
+theme[proc_box]="#b9a98a"
+
+# Box divider line and small box line color.
+theme[div_line]="#cbbd9f"
+
+# Temperature graph colors.
+theme[temp_start]="#6f9f73"
+theme[temp_mid]="#c4953a"
+theme[temp_end]="#b5443f"
+
+# CPU graph colors.
+theme[cpu_start]="#6f9f73"
+theme[cpu_mid]="#c4953a"
+theme[cpu_end]="#b5443f"
+
+# Memory/Disk free meter (low free = bad, high free = good).
+theme[free_start]="#b5443f"
+theme[free_mid]="#c4953a"
+theme[free_end]="#6f9f73"
+
+# Memory/Disk cached meter.
+theme[cached_start]="#8a8068"
+theme[cached_mid]="#c4953a"
+theme[cached_end]="#6f9f73"
+
+# Memory/Disk available meter.
+theme[available_start]="#b5443f"
+theme[available_mid]="#c4953a"
+theme[available_end]="#6f9f73"
+
+# Memory/Disk used meter (low used = good, high used = bad).
+theme[used_start]="#6f9f73"
+theme[used_mid]="#c4953a"
+theme[used_end]="#b5443f"
+
+# Download graph colors.
+theme[download_start]="#6f9f73"
+theme[download_mid]="#c4953a"
+theme[download_end]="#b5443f"
+
+# Upload graph colors.
+theme[upload_start]="#6f9f73"
+theme[upload_mid]="#c4953a"
+theme[upload_end]="#b5443f"
+
+# Process box gradient for threads, memory and CPU usage.
+theme[process_start]="#6f9f73"
+theme[process_mid]="#c4953a"
+theme[process_end]="#b5443f"

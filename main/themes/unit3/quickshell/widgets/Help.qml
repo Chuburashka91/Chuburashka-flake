@@ -31,6 +31,7 @@ Item {
                 { keys: "SUPER + D", desc: "Лаунчер" },
                 { keys: "SUPER + E", desc: "Файлы" },
                 { keys: "SUPER + B", desc: "Браузер" },
+                { keys: "SUPER + Shift + B", desc: "btop (прозрачный)" },
                 { keys: "SUPER + P", desc: "Обои" },
                 { keys: "SUPER + V", desc: "Буфер обмена" },
                 { keys: "SUPER + Tab", desc: "Панель управления" },
@@ -43,7 +44,7 @@ Item {
                 { keys: "SUPER + L", desc: "Выключить экран (DPMS)" },
                 { keys: "SUPER + Shift + L", desc: "Layout: scrolling / dwindle" },
                 { keys: "SUPER + S", desc: "Специальное пространство" },
-                { keys: "SUPER + Shift + S", desc: "Перенести в специальное" },
+                { keys: "SUPER + Alt + S", desc: "Перенести в специальное" },
                 { keys: "SUPER + Esc", desc: "Выход из Hyprland" }
             ]
         }
@@ -75,7 +76,7 @@ Item {
             title: "СКРИНШОТЫ",
             items: [
                 { keys: "Print", desc: "Сохранить скриншот" },
-                { keys: "ALT + Shift + S", desc: "Скриншот в буфер" }
+                { keys: "SUPER + Shift + S", desc: "Скриншот в буфер" }
             ]
         }
     ]
