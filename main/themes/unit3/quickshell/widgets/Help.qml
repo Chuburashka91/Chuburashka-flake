@@ -1,4 +1,5 @@
 import QtQuick
+import "../settings"
 
 Item {
     id: root
@@ -13,14 +14,15 @@ Item {
     implicitWidth: screenW
     implicitHeight: screenH
 
-    // Palette — как в Menu.qml
-    readonly property color paper:     "#d6cfb5"
-    readonly property color ink:       "#463f2e"
-    readonly property color inkStrong: "#2e2a1f"
-    readonly property color inkSoft:   "#7a7358"
-    readonly property color lineSoft:  Qt.rgba(70/255,63/255,46/255,0.25)
-    readonly property color lineVsoft: Qt.rgba(70/255,63/255,46/255,0.12)
-    readonly property color accent:    "#6e2a2a"
+    // Palette — runtime, shared with ControlCenter
+    readonly property color paper:     U3Palette.paper
+    readonly property color ink:       U3Palette.ink
+    readonly property color inkStrong: U3Palette.inkStrong
+    readonly property color inkSoft:   U3Palette.inkSoft
+    readonly property color lineSoft:  U3Palette.lineSoft
+    readonly property color lineVsoft: U3Palette.lineVsoft
+    readonly property color accent:    U3Palette.accent
+    readonly property int   radius:    U3Palette.radius
 
     readonly property var leftSections: [
         {
@@ -35,7 +37,9 @@ Item {
                 { keys: "SUPER + P", desc: "Обои" },
                 { keys: "SUPER + V", desc: "Буфер обмена" },
                 { keys: "SUPER + Tab", desc: "Панель управления" },
-                { keys: "SUPER + F1", desc: "Справка" }
+                { keys: "SUPER + F1", desc: "Справка" },
+                { keys: "SUPER + ALT + P", desc: "Сменить палитру" },
+                { keys: "SUPER + SHIFT + P", desc: "Стиль + случайные обои" }
             ]
         },
         {
@@ -129,7 +133,7 @@ Item {
     // ── Затемнение ──
     Rectangle {
         anchors.fill: parent
-        color: root.helpOpen ? Qt.rgba(184/255,175/255,147/255,0.55) : "transparent"
+        color: root.helpOpen ? U3Palette.overlay : "transparent"
         Behavior on color { ColorAnimation { duration: 180 } }
 
         MouseArea {
@@ -146,6 +150,7 @@ Item {
         y: (root.screenH - root.lh) / 2
         width: root.lw
         height: root.lh
+        radius: root.radius
         color: root.paper
         border.color: root.ink
         border.width: 1
@@ -198,7 +203,7 @@ Item {
                 Row {
                     spacing: 14
                     anchors.verticalCenter: parent.verticalCenter
-                    Text { text: "НЕЙР-СИСТЕМА"; font.pixelSize: 11; font.letterSpacing: 3.5; font.weight: Font.Medium; color: root.inkStrong }
+                    Text { text: U3Palette.label.toUpperCase(); font.pixelSize: 11; font.letterSpacing: 3.5; font.weight: Font.Medium; color: root.inkStrong }
                     Rectangle { width: 24; height: 1; color: root.inkSoft; anchors.verticalCenter: parent.verticalCenter }
                     Text { text: "СПРАВКА"; font.pixelSize: 10; font.letterSpacing: 2; color: root.inkSoft }
                 }
@@ -250,7 +255,7 @@ Item {
                                         spacing: 10
                                         Rectangle {
                                             width: 150; height: 19
-                                            color: "transparent"; border.color: root.lineSoft; border.width: 1
+                                            radius: root.radius; color: "transparent"; border.color: root.lineSoft; border.width: 1
                                             Text { anchors.centerIn: parent; text: modelData.keys; font.pixelSize: 9; font.letterSpacing: 0.5; color: root.ink }
                                         }
                                         Text {
@@ -289,7 +294,7 @@ Item {
                                         spacing: 10
                                         Rectangle {
                                             width: 150; height: 19
-                                            color: "transparent"; border.color: root.lineSoft; border.width: 1
+                                            radius: root.radius; color: "transparent"; border.color: root.lineSoft; border.width: 1
                                             Text { anchors.centerIn: parent; text: modelData.keys; font.pixelSize: 9; font.letterSpacing: 0.5; color: root.ink }
                                         }
                                         Text {
@@ -328,7 +333,7 @@ Item {
                                         spacing: 10
                                         Rectangle {
                                             width: 150; height: 19
-                                            color: "transparent"; border.color: root.lineSoft; border.width: 1
+                                            radius: root.radius; color: "transparent"; border.color: root.lineSoft; border.width: 1
                                             Text { anchors.centerIn: parent; text: modelData.keys; font.pixelSize: 9; font.letterSpacing: 0.5; color: root.ink }
                                         }
                                         Text {
@@ -370,7 +375,7 @@ Item {
                             spacing: 5
                             Rectangle {
                                 width: kbdT.implicitWidth + 8; height: 16
-                                color: "transparent"; border.color: root.lineSoft; border.width: 1
+                                radius: root.radius; color: "transparent"; border.color: root.lineSoft; border.width: 1
                                 Text { id: kbdT; anchors.centerIn: parent; text: modelData[0]; font.pixelSize: 9; font.letterSpacing: 1; color: root.ink }
                             }
                             Text { text: modelData[1]; anchors.verticalCenter: parent.verticalCenter; font.pixelSize: 9; font.letterSpacing: 2; color: root.inkSoft }

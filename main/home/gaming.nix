@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   # The skin is not in nixpkgs; this builds it and exposes the upstream CLI
   # installer. AdwSteamGtk is the graphical installer/updater for the same skin.
@@ -16,26 +16,32 @@ let
   });
 in
 {
-  # AdwSteamGtk reads this file, and the installer copies it into the skin.
-  # Copy instead of symlink so the GUI's "Edit" button stays writable; the
-  # repo file is the source of truth and wins on every rebuild.
-  home.activation.adwSteamCss = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  # AdwSteamGtk reads this symlink; the runtime renderer rewrites its target
+  # when the palette changes. The GUI's "Edit" button follows the symlink.
+  xdg.configFile."AdwSteamGtk/custom.css" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/unit3/active/steam.css";
+    force = true;
+  };
+
+  # Steam rewrites steamui/ on updates, so re-apply the skin on rebuild. The
+  # installed skin's custom.css is a symlink to the active palette; a runtime
+  # switch only needs a Steam restart.
+  home.activation.adwSteamCss = lib.hm.dag.entryAfter [ "writeBoundary" "unit3Palette" ] ''
     set -e
     if [ -n "$DRY_RUN_CMD" ]; then
-      echo "would install AdwSteamGtk custom.css and apply the skin"
+      echo "would apply the Adwaita-for-Steam skin"
     else
-      mkdir -p "$HOME/.config/AdwSteamGtk"
-      ${pkgs.coreutils}/bin/install -m 644 ${../themes/steam/unit3.css} "$HOME/.config/AdwSteamGtk/custom.css"
-
-      # Steam rewrites steamui/ on every client update, so re-apply the skin on
-      # each activation. Skip while Steam is open: it rewrites those files on
-      # exit and the skin would silently disappear.
       if ${pkgs.procps}/bin/pgrep -x steam >/dev/null 2>&1; then
         echo "adwaita-for-steam: Steam is running, skin NOT applied — close Steam and rebuild (or run: adwaita-for-steam --custom-css ~/.config/AdwSteamGtk/custom.css)" >&2
       else
         ${adwaita-for-steam}/bin/adwaita-for-steam \
           --custom-css "$HOME/.config/AdwSteamGtk/custom.css" \
           || echo "adwaita-for-steam: install failed (Steam not found?) — custom.css is still in place" >&2
+      fi
+
+      skin="$HOME/.steam/steam/steamui/adwaita/custom.css"
+      if [ -e "$skin" ] || [ -L "$skin" ]; then
+        ${pkgs.coreutils}/bin/ln -sfn "$HOME/.config/unit3/active/steam.css" "$skin"
       fi
     fi
   '';

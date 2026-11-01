@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import "../settings"
 
 // ═════════════════════════════════════════════════════════════════════
 //   NieR Control Center — Quickshell module
@@ -20,13 +21,14 @@ ShellRoot {
     property string assetsDir:     xdgConfigHome + "/quickshell/assets"
     property string arrowPng:      "file://" + assetsDir + "/nier-arrow.png"
 
-    // ── Palette NieR ──
-    readonly property color colCard:     "#e8e0c8"
-    readonly property color colCardSoft: Qt.rgba(232/255, 224/255, 200/255, 0.4)
-    readonly property color colInk:      "#3a342a"
-    readonly property color colInkSoft:  "#6a604a"
-    readonly property color colHi:       "#1f1c16"
-    readonly property color colLight:    "#f5edd5"
+    // ── Palette — follows the active runtime palette ──
+    readonly property color colCard:     U3Palette.paperLight
+    readonly property color colCardSoft: Qt.rgba(U3Palette.paperLight.r, U3Palette.paperLight.g, U3Palette.paperLight.b, 0.4)
+    readonly property color colInk:      U3Palette.ink
+    readonly property color colInkSoft:  U3Palette.inkSoft
+    readonly property color colHi:       U3Palette.inkStrong
+    readonly property color colLight:    U3Palette.selectionText
+    readonly property int   pRadius:     U3Palette.radius
 
     // ── Layout ──
     readonly property int  slotGapV: 150
@@ -1098,7 +1100,7 @@ ShellRoot {
             // Fond dim
             Rectangle {
                 anchors.fill: parent
-                color: "#0b0906"
+                color: U3Palette.black
                 opacity: (root.open && !root.closing) ? 0.6 : 0
                 Behavior on opacity { NumberAnimation { duration: 400 } }
                 MouseArea { anchors.fill: parent; onClicked: root.close() }
@@ -1226,7 +1228,7 @@ ShellRoot {
                 Rectangle {
                     id: qrBackdrop
                     anchors.fill: parent
-                    color: "#000000"
+                    color: U3Palette.black
                     opacity: (root.qshareUrl !== "" && isActive) ? 0.55 : 0
                     visible: opacity > 0
                     z: 100
@@ -1252,6 +1254,7 @@ ShellRoot {
                     // Fond carte
                     Rectangle {
                         anchors.fill: parent
+                        radius: root.pRadius
                         color: root.colCard
                         border.color: root.colInk
                         border.width: 1
@@ -1260,6 +1263,7 @@ ShellRoot {
                     Rectangle {
                         anchors.fill: parent
                         anchors.margins: 4
+                        radius: Math.max(0, root.pRadius - 4)
                         color: "transparent"
                         border.color: root.colInk
                         border.width: 1
@@ -1536,6 +1540,7 @@ ShellRoot {
             Rectangle {
                 id: box
                 anchors.fill: parent
+                radius: root.pRadius
                 color: root.colCard
                 border.color: root.colInk
                 border.width: 1
@@ -1589,6 +1594,7 @@ ShellRoot {
                 Rectangle {
                     id: curtain
                     anchors.fill: parent
+                    radius: root.pRadius
                     color: root.colCard
                     transform: Scale {
                         origin.x: 0; origin.y: 0
@@ -1717,6 +1723,7 @@ ShellRoot {
             // Box stylisée style NieR (fond opaque + bordure + onglet)
             Rectangle {
                 anchors.fill: parent
+                radius: root.pRadius
                 color: root.colCard
                 border.color: root.colInk
                 border.width: 1
@@ -1725,6 +1732,7 @@ ShellRoot {
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: 4
+                radius: Math.max(0, root.pRadius - 4)
                 color: "transparent"
                 border.color: root.colInk
                 border.width: 1
@@ -2105,6 +2113,7 @@ ShellRoot {
                         Rectangle {
                             width: parent.width
                             height: 32
+                            radius: root.pRadius
                             color: root.colCard
                             border.color: root.colInk
                             border.width: 1
@@ -2162,7 +2171,7 @@ ShellRoot {
                             text: root.wifiError
                             font.family: "Inter"
                             font.pixelSize: 10
-                            color: "#a04030"
+                            color: U3Palette.danger
                         }
 
                         // Boutons Connect / Cancel
@@ -2256,6 +2265,7 @@ ShellRoot {
         // Fond opaque permanent
         Rectangle {
             anchors.fill: parent
+            radius: root.pRadius
             color: root.colCard
             z: 0
         }

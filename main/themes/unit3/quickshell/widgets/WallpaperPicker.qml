@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import "../settings"
 
 ShellRoot {
     id: root
@@ -19,8 +20,13 @@ ShellRoot {
     property string home:          Quickshell.env("HOME")
     property string xdgConfigHome: Quickshell.env("XDG_CONFIG_HOME") || (home + "/.config")
     property string xdgPictures:   Quickshell.env("XDG_PICTURES_DIR") || (home + "/Pictures")
-    property string wallpaperDir:  xdgPictures + "/wallpapers/others"
+    property var    styles:        ["unit3", "gaming", "space", "mimimi"]
+    property string activeStyle:   "unit3"
+    property int    styleIndex:    0
+    property string styleName:     "unit3"
+    property string wallpaperDir:  xdgPictures + "/wallpapers/" + styleName
     property string activeMonitor: ""   // nom du monitor actif (où est la souris)
+    property string paletteBin:    "/etc/profiles/per-user/" + (Quickshell.env("USER") || "") + "/bin/unit3-palette"
 
     // ── Détecter le monitor actif ──
     Process {
@@ -36,27 +42,65 @@ ShellRoot {
         }
     }
 
-    // ── Lister les wallpapers ──
+    // ── Lire le style courant, puis lister ses wallpapers ──
     Process {
-        id: listWallpapers
-        command: ["sh","-c","ls " + root.wallpaperDir + " | grep -iE '\\.(jpg|jpeg|png|webp)$'"]
+        id: getStyleProc
+        command: ["sh","-c","cat " + root.xdgConfigHome + "/unit3/style 2>/dev/null || echo unit3"]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {
-                var files = this.text.trim().split("\n").filter(function(f){ return f !== "" })
-                root.wallpapers = files
+                var s = this.text.trim()
+                if (s !== "") {
+                    root.activeStyle = s
+                    root.styleName = s
+                    root.styleIndex = Math.max(0, root.styles.indexOf(s))
+                }
+                listWallpapers.running = true
             }
         }
     }
 
-    // ── Appliquer le wallpaper ──
+    Process {
+        id: listWallpapers
+        command: ["sh","-c","ls " + root.wallpaperDir + " | grep -iE '\\.(jpg|jpeg|png|webp)$'"]
+        running: false
+        stdout: StdioCollector {
+            onStreamFinished: {
+                var files = this.text.trim().split("\n").filter(function(f){ return f !== "" })
+                root.wallpapers = files
+                root.currentIndex = 0
+            }
+        }
+    }
+
+    // ── Changer de dossier de style (haut/bas) sans appliquer la palette ──
+    function cycleStyle(dir) {
+        var i = root.styles.indexOf(root.styleName)
+        if (i < 0) i = 0
+        var n = root.styles.length
+        root.styleName = root.styles[((i + dir) % n + n) % n]
+        root.currentIndex = 0
+        root.wallpapers = []
+        // wallpaperDir is a binding; restart the listing process for the new dir.
+        listWallpapers.running = false
+        listWallpapers.command = ["sh","-c","ls " + root.wallpaperDir + " | grep -iE '\\.(jpg|jpeg|png|webp)$'"]
+        listWallpapers.running = true
+    }
+
+    // ── Appliquer le wallpaper, et le style s'il vient d'un autre dossier ──
     function applyWallpaper(idx, monitor) {
         if (root.wallpapers.length === 0) return
         var file = root.wallpaperDir + "/" + root.wallpapers[idx]
-        var cmd = monitor === "both"
+        var cmds = []
+        if (root.styleName !== root.activeStyle) {
+            cmds.push(root.paletteBin + " set " + root.styleName)
+            root.activeStyle = root.styleName
+        }
+        cmds.push(root.paletteBin + " remember \"" + file + "\"")
+        cmds.push(monitor === "both"
             ? "awww img \"" + file + "\""
-            : "awww img --outputs " + monitor + " \"" + file + "\""
-        applyProc.command = ["sh", "-c", cmd]
+            : "awww img --outputs " + monitor + " \"" + file + "\"")
+        applyProc.command = ["sh", "-c", cmds.join("; ")]
         applyProc.running = true
     }
 
@@ -128,25 +172,25 @@ ShellRoot {
                     z:5; opacity:parent.uiOp
                     Column { spacing:2
                         Row { spacing:5
-                            Rectangle { width:5;height:5;radius:3;color:"#6e2a2a"
+                            Rectangle { width:5;height:5;radius:3;color:U3Palette.accent
                                 anchors.verticalCenter:parent.verticalCenter
                                 SequentialAnimation on opacity { running:root.frozen; loops:Animation.Infinite
                                     NumberAnimation{to:0.3;duration:900} NumberAnimation{to:1;duration:900} }
                             }
-                            Text{text:"ВЫБОР ОБОЕВ";font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:"#463f2e"}
+                            Text{text:"ВЫБОР ОБОЕВ · "+root.styleName.toUpperCase();font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:U3Palette.ink}
                         }
-                        Text{text:"УЗЕЛ · "+root.activeMonitor;font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:"#463f2e"}
+                        Text{text:"УЗЕЛ · "+root.activeMonitor;font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:U3Palette.ink}
                     }
                 }
                 Item {
                     anchors{top:parent.top;right:parent.right;topMargin:28;rightMargin:30}
                     z:5; opacity:parent.uiOp
-                    Text{text:root.clockFull;font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:"#463f2e"}
+                    Text{text:root.clockFull;font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:U3Palette.ink}
                 }
                 Item {
                     anchors{bottom:parent.bottom;left:parent.left;bottomMargin:28;leftMargin:30}
                     z:5; opacity:parent.uiOp
-                    Text{text:"↑↓ / КОЛЕСО — НАВИГАЦИЯ  ·  ESC — ВЫХОД";font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:"#463f2e"}
+                    Text{text:"←→ ОБОИ  ·  ↑↓ СТИЛЬ  ·  ESC — ВЫХОД";font.family:"Share Tech Mono";font.pixelSize:9;font.letterSpacing:2;color:U3Palette.ink}
                 }
 
                 // ── Boutons apply — toujours visibles ──
@@ -163,10 +207,11 @@ ShellRoot {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: "#d6cfb5"
-                        border.color: "#463f2e"; border.width: 1
+                        radius: U3Palette.radius
+                        color: U3Palette.paper
+                        border.color: U3Palette.ink; border.width: 1
 
-                        Repeater { model:22; Rectangle{x:index*20;y:0;width:1;height:parent.height;color:Qt.rgba(70/255,63/255,46/255,0.06)} }
+                        Repeater { model:22; Rectangle{x:index*20;y:0;width:1;height:parent.height;color:Qt.rgba(U3Palette.ink.r, U3Palette.ink.g, U3Palette.ink.b, 0.06)} }
 
                         Column {
                             id: applyCol
@@ -177,9 +222,9 @@ ShellRoot {
                             Text {
                                 text: "ПРИМЕНИТЬ ОБОИ"
                                 font.family:"Share Tech Mono";font.pixelSize:10;font.letterSpacing:3
-                                color:"#463f2e";anchors.horizontalCenter:parent.horizontalCenter
+                                color:U3Palette.ink;anchors.horizontalCenter:parent.horizontalCenter
                             }
-                            Rectangle { width:parent.width;height:1;color:Qt.rgba(70/255,63/255,46/255,0.22) }
+                            Rectangle { width:parent.width;height:1;color:Qt.rgba(U3Palette.ink.r, U3Palette.ink.g, U3Palette.ink.b, 0.22) }
 
                             Row {
                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -187,13 +232,13 @@ ShellRoot {
 
                                 // Bouton écran actif
                                 Item { width:162; height:42
-                                    Rectangle { anchors.fill:parent;color:"transparent";border.color:"#463f2e";border.width:1 }
-                                    Rectangle { id:fill1;anchors.left:parent.left;anchors.top:parent.top;anchors.bottom:parent.bottom;color:"#463f2e";width:0
+                                    Rectangle { anchors.fill:parent;radius:U3Palette.radius;color:"transparent";border.color:U3Palette.ink;border.width:1 }
+                                    Rectangle { id:fill1;anchors.left:parent.left;anchors.top:parent.top;anchors.bottom:parent.bottom;color:U3Palette.ink;width:0
                                         Behavior on width{NumberAnimation{duration:220}} }
                                     Text { anchors.centerIn:parent
                                         text:"ЭТОТ ЭКРАН"
                                         font.family:"Share Tech Mono";font.pixelSize:10;font.letterSpacing:2
-                                        color:ma1.containsMouse?"#d6cfb5":"#463f2e"
+                                        color:ma1.containsMouse?U3Palette.paper:U3Palette.ink
                                         Behavior on color{ColorAnimation{duration:200}} }
                                     MouseArea { id:ma1;anchors.fill:parent;hoverEnabled:true
                                         onEntered:fill1.width=parent.width;onExited:fill1.width=0
@@ -202,13 +247,13 @@ ShellRoot {
 
                                 // Bouton les deux écrans
                                 Item { width:162; height:42
-                                    Rectangle { anchors.fill:parent;color:"transparent";border.color:"#463f2e";border.width:1 }
-                                    Rectangle { id:fill2;anchors.left:parent.left;anchors.top:parent.top;anchors.bottom:parent.bottom;color:"#463f2e";width:0
+                                    Rectangle { anchors.fill:parent;radius:U3Palette.radius;color:"transparent";border.color:U3Palette.ink;border.width:1 }
+                                    Rectangle { id:fill2;anchors.left:parent.left;anchors.top:parent.top;anchors.bottom:parent.bottom;color:U3Palette.ink;width:0
                                         Behavior on width{NumberAnimation{duration:220}} }
                                     Text { anchors.centerIn:parent
                                         text:"ВСЕ ЭКРАНЫ"
                                         font.family:"Share Tech Mono";font.pixelSize:10;font.letterSpacing:2
-                                        color:ma2.containsMouse?"#d6cfb5":"#463f2e"
+                                        color:ma2.containsMouse?U3Palette.paper:U3Palette.ink
                                         Behavior on color{ColorAnimation{duration:200}} }
                                     MouseArea { id:ma2;anchors.fill:parent;hoverEnabled:true
                                         onEntered:fill2.width=parent.width;onExited:fill2.width=0
@@ -236,8 +281,8 @@ ShellRoot {
                     Keys.onEscapePressed: root.doClose()
                     Keys.onLeftPressed:   root.navigate(-1)
                     Keys.onRightPressed:  root.navigate(1)
-                    Keys.onUpPressed:     root.navigate(-1)
-                    Keys.onDownPressed:   root.navigate(1)
+                    Keys.onUpPressed:     root.cycleStyle(-1)
+                    Keys.onDownPressed:   root.cycleStyle(1)
                     Keys.onReturnPressed:  { root.applyWallpaper(root.currentIndex, "both"); root.doClose() }
                     Keys.onSpacePressed:  { root.applyWallpaper(root.currentIndex, "both"); root.doClose() }
                     readonly property int n: root.wallpapers.length
@@ -311,8 +356,9 @@ ShellRoot {
 
                             Rectangle {
                                 anchors.fill: parent
-                                color: "#0f0d0a"
-                                border.color: thumb.absDelta === 0 ? "#c8b89a" : "#463f2e"
+                                radius: U3Palette.radius
+                                color: U3Palette.black
+                                border.color: thumb.absDelta === 0 ? U3Palette.inkSoft : U3Palette.ink
                                 border.width: thumb.absDelta === 0 ? 2 : 1
                                 Behavior on border.color { ColorAnimation { duration:260 } }
 
@@ -330,7 +376,7 @@ ShellRoot {
                                     anchors.bottom: parent.bottom
                                     width: parent.width
                                     height: 24
-                                    color: Qt.rgba(0,0,0,0.6)
+                                    color: Qt.rgba(U3Palette.black.r, U3Palette.black.g, U3Palette.black.b, 0.6)
                                     opacity: thumb.absDelta === 0 ? 1 : 0
                                     Behavior on opacity { NumberAnimation { duration:200 } }
                                     Text {
@@ -338,7 +384,7 @@ ShellRoot {
                                         text: root.wallpapers[thumb.wIdx]
                                         font.family: "Share Tech Mono"
                                         font.pixelSize: 8
-                                        color: "#c8b89a"
+                                        color: U3Palette.inkSoft
                                     }
                                 }
                             }

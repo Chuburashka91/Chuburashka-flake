@@ -49,6 +49,21 @@ Unit-3, Waybar, Kitty, Zsh/p10k и набор повседневных прил�
 - Связь: **Telegram**, **Vesktop**; медиа: VLC, Audacity и др.
 - Скриншоты, буфер обмена (cliphist), управление питанием.
 
+#### Палитра
+
+- Четыре палитры лежат в `main/themes/palettes/*.toml`: `unit3`, `gaming`,
+  `space`, `mimimi`. При активации они копируются в
+  `~/.config/unit3/palettes/` (существующие копии не перезаписываются).
+  Переключение — `SUPER+ALT+P`, без пересборки.
+- `unit3-palette set <name>` переключает сразу; состояние пишется в
+  `~/.config/unit3/style` и `U3_STYLE`.
+- `SUPER+SHIFT+P` — следующий стиль **и** случайная обоина из его папки.
+- `radius` — все поверхности, `buttonRadius` — только кнопки. Например,
+  `radius = "0"; buttonRadius = "6px";` скруглит только кнопки.
+- Обои берутся из `~/Pictures/wallpapers/<style>/` (fallback — `others`).
+  Выбранная обоина и стиль сохраняются в `~/.config/unit3/` и
+  восстанавливаются при следующем входе.
+
 #### Vencord / Vesktop
 
 - Локальная тема Unit-3 лежит в `main/themes/vencord/unit3.theme.css`
@@ -94,6 +109,9 @@ Unit-3, Waybar, Kitty, Zsh/p10k и набор повседневных прил�
    - спросит имя пользователя и подставит его в `flake.nix` и домашние пути;
    - предложит чекбоксами установить **pi-агент** и **B4**;
    - закомментирует/раскомментирует их импорты в `main/core/default.nix`;
+   - положит восемь дефолтных обоев (по две на стиль) в
+     `~/Pictures/wallpapers/{unit3,gaming,space,mimimi}/`, не перезаписывая
+     уже существующие файлы;
    - сделает бэкап в `.installer-backup-*`;
    - предложит запустить `nixos-rebuild boot --flake "path:.#default"`.
 
@@ -176,6 +194,7 @@ main/
 ├── home/                 # Home Manager (hyprland, waybar, quickshell, apps)
 ├── themes/               # темы Unit-3, GTK, Vencord, Zen и btop
 └── hardware-configuration.nix
+files/wallpapers/         # дефолтные обои по стилям (CC0)
 secrets/                  # sops-зашифрованные секреты
 ```
 
@@ -192,7 +211,9 @@ secrets/                  # sops-зашифрованные секреты
 ## Лицензии
 
 Собственный код репозитория — см. `LICENSE`. Вендоренная тема Unit-3 —
-`main/themes/unit3/LICENSE` (MIT). Изображение в `files/` — MIT.
+`main/themes/unit3/LICENSE` (MIT). `files/forest_road.jpg` — MIT.
+Обои в `files/wallpapers/` сгенерированы для этого репозитория и отданы
+в public domain по CC0 1.0; см. `files/wallpapers/LICENSE`.
 
 ## Дисклеймер
 
@@ -258,6 +279,21 @@ Demo: [YouTube — Unit-3 rice](https://youtu.be/4b-UcpTkHts).
 - Communication: **Telegram**, **Vesktop**; media: VLC, Audacity, etc.
 - Screenshots, clipboard (cliphist), power management.
 
+#### Palette
+
+- Four palettes live in `main/themes/palettes/*.toml`: `unit3`, `gaming`,
+  `space`, `mimimi`. Activation seeds them into `~/.config/unit3/palettes/`
+  (existing copies are kept). Switch with `SUPER+ALT+P`, no rebuild.
+- `unit3-palette set <name>` switches immediately; the current name is in
+  `~/.config/unit3/style` and `U3_STYLE`.
+- `SUPER+SHIFT+P` switches to the next style **and** picks a random wallpaper
+  from that style's folder.
+- `radius` affects every surface, `buttonRadius` only buttons. E.g.
+  `radius = "0"; buttonRadius = "6px";` rounds buttons only.
+- Wallpapers come from `~/Pictures/wallpapers/<style>/` (fallback `others`).
+  The chosen wallpaper and style are persisted under `~/.config/unit3/` and
+  restored at the next login.
+
 #### Vencord / Vesktop
 
 - The local Unit-3 theme lives in `main/themes/vencord/unit3.theme.css`
@@ -303,6 +339,9 @@ This assumes NixOS is **already installed** and you have booted into it
    - ask for the username and substitute it into `flake.nix` and home paths;
    - offer checkboxes to install the **pi agent** and **B4**;
    - comment out/uncomment their imports in `main/core/default.nix`;
+   - install eight default wallpapers (two per style) into
+     `~/Pictures/wallpapers/{unit3,gaming,space,mimimi}/` without overwriting
+     existing files;
    - create a backup in `.installer-backup-*`;
    - offer to run `nixos-rebuild boot --flake "path:.#default"`.
 

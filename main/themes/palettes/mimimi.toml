@@ -1,0 +1,51 @@
+# mimimi — soft pink, green and butter-yellow, maximum rounding.
+name = "mimimi"
+label = "Mimimi"
+order = 4
+
+colorScheme = "light"
+radius = "20px"
+buttonRadius = "20px"
+
+paper = "#f9d9e6"
+paper2 = "#f3c9da"
+paper3 = "#edb9cf"
+paper4 = "#e5a8c2"
+paperLight = "#ffe9f2"
+overlay = "#8cf9d9e6"
+selectionText = "#fff9fc"
+
+ink = "#5c3a4b"
+inkStrong = "#3f2533"
+inkSoft = "#8e6479"
+inkMuted = "#aa8094"
+
+accent = "#6aa878"
+accentSoft = "#83c08f"
+accent200 = "#a3d6ac"
+accent300 = "#c0e5c7"
+accent600 = "#4f8c60"
+accent700 = "#3f7350"
+accent800 = "#335c41"
+accent900 = "#284733"
+
+danger = "#c94f6e"
+green = "#6aa878"
+gold = "#e0b84c"
+lineStrong = "#c98daa"
+rubber = "#d9a0b8"
+black = "#000000"
+spinText = "#3f2533"
+
+btopAccent = "#6aa878"
+btopAccentSoft = "#83c08f"
+btopGold = "#e0b84c"
+btopGreen = "#6aa878"
+btopPaperDim = "#f0c4d7"
+btopInkSoft = "#8e6479"
+btopBright = "#fff9fc"
+btopPaper4 = "#e5a8c2"
+
+steamWarning = "#e0b84c"
+steamWarningText = "#3f2533"
+steamSuccessText = "#6aa878"

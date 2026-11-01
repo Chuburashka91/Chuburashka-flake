@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import "../settings"
 
 Item {
     id: root
@@ -21,13 +22,14 @@ Item {
     implicitHeight: screenH
 
     // Palette
-    readonly property color paper:     "#d6cfb5"
-    readonly property color ink:       "#463f2e"
-    readonly property color inkStrong: "#2e2a1f"
-    readonly property color inkSoft:   "#7a7358"
-    readonly property color lineSoft:  Qt.rgba(70/255,63/255,46/255,0.25)
-    readonly property color lineVsoft: Qt.rgba(70/255,63/255,46/255,0.12)
-    readonly property color accent:    "#6e2a2a"
+    readonly property color paper:     U3Palette.paper
+    readonly property color ink:       U3Palette.ink
+    readonly property color inkStrong: U3Palette.inkStrong
+    readonly property color inkSoft:   U3Palette.inkSoft
+    readonly property color lineSoft:  U3Palette.lineSoft
+    readonly property color lineVsoft: U3Palette.lineVsoft
+    readonly property color accent:    U3Palette.accent
+    readonly property int   radius:    U3Palette.radius
 
     // Apps
     property var  apps: []
@@ -176,7 +178,7 @@ Item {
     // ── Overlay ──
     Rectangle {
         anchors.fill: parent
-        color: root.menuOpen ? Qt.rgba(184/255,175/255,147/255,0.55) : "transparent"
+        color: root.menuOpen ? U3Palette.overlay : "transparent"
         visible: true
         Behavior on color { ColorAnimation { duration: 260 } }
         MouseArea {
@@ -200,6 +202,7 @@ Item {
         Rectangle {
             id:     panelContent
             anchors.fill: parent
+            radius: root.radius
             color:  root.paper
             border.color: root.ink; border.width: 1
 
@@ -293,7 +296,7 @@ Item {
 
                                 Rectangle {
                                     anchors.fill:parent
-                                    color: parent.isActive ? root.ink : (catMA.containsMouse ? Qt.rgba(70/255,63/255,46/255,0.07) : "transparent")
+                                    color: parent.isActive ? root.ink : (catMA.containsMouse ? Qt.rgba(U3Palette.ink.r, U3Palette.ink.g, U3Palette.ink.b, 0.07) : "transparent")
                                     Behavior on color { ColorAnimation { duration:150 } }
                                 }
                                 Row {
@@ -318,7 +321,7 @@ Item {
                                     anchors { right:parent.right; rightMargin:12; verticalCenter:parent.verticalCenter }
                                     text: root.apps.filter(function(a){ return modelData==="all"||a.cat===modelData }).length.toString().padStart(2,"0")
                                     font.pixelSize:9; font.letterSpacing:1
-                                    color: parent.isActive ? Qt.rgba(214/255,207/255,181/255,0.6) : Qt.rgba(122/255,115/255,88/255,0.5)
+                                    color: parent.isActive ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,0.6) : Qt.rgba(U3Palette.inkSoft.r, U3Palette.inkSoft.g, U3Palette.inkSoft.b,0.5)
                                 }
                                 MouseArea { id:catMA; anchors.fill:parent; hoverEnabled:true
                                     onClicked: { root.currentCat=modelData; root.focusIdx=0; searchInput.forceActiveFocus() } }
@@ -445,18 +448,18 @@ Item {
                                     Text {
                                         anchors.verticalCenter:parent.verticalCenter
                                         text:modelData.id; width:22; font.pixelSize:9; font.letterSpacing:1.5
-                                        color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(214/255,207/255,181/255,0.5) : root.inkSoft
+                                        color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,0.5) : root.inkSoft
                                         Behavior on color { ColorAnimation { duration:120 } }
                                     }
                                     Rectangle {
                                         anchors.verticalCenter:parent.verticalCenter
                                         width:28; height:28; color:"transparent"
-                                        border.color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(214/255,207/255,181/255,0.8) : root.ink
+                                        border.color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,0.8) : root.ink
                                         border.width:1
                                         Behavior on border.color { ColorAnimation { duration:120 } }
                                         Text {
                                             anchors.centerIn:parent; text:modelData.icon; font.pixelSize:12
-                                            color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(214/255,207/255,181/255,0.9) : root.ink
+                                            color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,0.9) : root.ink
                                             Behavior on color { ColorAnimation { duration:120 } }
                                         }
                                     }
@@ -464,12 +467,12 @@ Item {
                                         anchors.verticalCenter:parent.verticalCenter; spacing:2
                                         Text {
                                             text:modelData.name; font.pixelSize:12; font.letterSpacing:1.2; font.weight:Font.Medium
-                                            color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(214/255,207/255,181/255,1) : root.ink
+                                            color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,1) : root.ink
                                             Behavior on color { ColorAnimation { duration:120 } }
                                         }
                                         Text {
                                             text:modelData.meta; font.pixelSize:9; font.letterSpacing:1.5
-                                            color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(214/255,207/255,181/255,0.5) : root.inkSoft
+                                            color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,0.5) : root.inkSoft
                                             Behavior on color { ColorAnimation { duration:120 } }
                                         }
                                     }
@@ -478,7 +481,7 @@ Item {
                                         anchors.verticalCenter:parent.verticalCenter
                                         text:(root.catLabels[modelData.cat]||modelData.cat).toUpperCase()
                                         font.pixelSize:9; font.letterSpacing:2
-                                        color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(214/255,207/255,181/255,0.4) : root.inkSoft
+                                        color: appMA.containsMouse||appDelegate.isFocused ? Qt.rgba(U3Palette.paper.r, U3Palette.paper.g, U3Palette.paper.b,0.4) : root.inkSoft
                                         Behavior on color { ColorAnimation { duration:120 } }
                                     }
                                     Text {
@@ -568,7 +571,7 @@ Item {
         Rectangle {
             id:wipeCurtain
             anchors{top:parent.top;bottom:parent.bottom}
-            color:"#c8b89a"; z:50; width:2; x:root.lw-2
+            color: U3Palette.inkSoft; z:50; width:2; x:root.lw-2
         }
     }
 

@@ -1,4 +1,5 @@
 # Unit-3 btop theme — paper / ink / rust, brighter accents.
+# Values are rendered at runtime by unit3-palette from ~/.config/unit3/palettes.
 # Every btop theme key is written out explicitly so it is easy to tweak.
 # Palette:
 #   paper       #d6cfb5    main background

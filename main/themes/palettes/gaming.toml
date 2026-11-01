@@ -1,0 +1,51 @@
+# gaming — aggressive dark theme: black, red and electric blue.
+name = "gaming"
+label = "Gaming"
+order = 2
+
+colorScheme = "dark"
+radius = "0"
+buttonRadius = "0"
+
+paper = "#08090d"
+paper2 = "#0f1117"
+paper3 = "#151922"
+paper4 = "#1c212c"
+paperLight = "#10141b"
+overlay = "#9e000000"
+selectionText = "#f4f6fb"
+
+ink = "#c7ccd6"
+inkStrong = "#f2f4f8"
+inkSoft = "#7f8795"
+inkMuted = "#5d6572"
+
+accent = "#e01f2d"
+accentSoft = "#ff3d4a"
+accent200 = "#ff6b75"
+accent300 = "#ff8a92"
+accent600 = "#a8121d"
+accent700 = "#841018"
+accent800 = "#5f0c12"
+accent900 = "#3d080c"
+
+danger = "#ff3d4a"
+green = "#2f7bff"
+gold = "#4f9dff"
+lineStrong = "#3b4250"
+rubber = "#2a3140"
+black = "#000000"
+spinText = "#f4f6fb"
+
+btopAccent = "#e01f2d"
+btopAccentSoft = "#ff3d4a"
+btopGold = "#2f7bff"
+btopGreen = "#2f7bff"
+btopPaperDim = "#202634"
+btopInkSoft = "#7f8795"
+btopBright = "#f2f4f8"
+btopPaper4 = "#2a3140"
+
+steamWarning = "#2f7bff"
+steamWarningText = "#f4f6fb"
+steamSuccessText = "#2f7bff"

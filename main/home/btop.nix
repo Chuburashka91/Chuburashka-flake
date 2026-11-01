@@ -1,6 +1,9 @@
-{ ... }:
+{ config, ... }:
 {
-  xdg.configFile."btop/themes/unit3.theme".source = ../themes/btop/unit3.theme;
+  xdg.configFile."btop/themes/unit3.theme" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/unit3/active/btop.theme";
+    force = true;
+  };
 
   xdg.configFile."btop/btop.conf".text = ''
     # Unit-3 btop settings. The palette lives in themes/unit3.theme.

@@ -84,6 +84,53 @@ else
   echo "Пользователь: $NEW_USER"
 fi
 
+# ── обои по стилям ───────────────────────────────────────────────────
+# Копируем сгенерированные обои в домашний каталог, не перезаписывая
+# уже выбранные пользователем файлы. Если пользователь ещё не создан
+# (свежая установка), это сделает Home Manager activation после сборки.
+install_wallpapers() {
+  local src="$SCRIPT_DIR/files/wallpapers"
+  [[ -d "$src" ]] || return 0
+
+  local target_home target_uid target_gid
+  target_home="$(getent passwd "$NEW_USER" | cut -d: -f6 || true)"
+  target_home="${target_home:-/home/$NEW_USER}"
+
+  if [[ ! -d "$target_home" ]]; then
+    echo "Обои: $target_home ещё не создан; Home Manager положит их после сборки."
+    return 0
+  fi
+
+  target_uid="$(id -u "$NEW_USER" 2>/dev/null || id -u "$OWNER")"
+  target_gid="$(id -g "$NEW_USER" 2>/dev/null || id -g "$OWNER")"
+
+  install -d -m 755 -o "$target_uid" -g "$target_gid" \
+    "$target_home/Pictures" "$target_home/Pictures/wallpapers" \
+    "$target_home/Pictures/wallpapers/unit3" \
+    "$target_home/Pictures/wallpapers/gaming" \
+    "$target_home/Pictures/wallpapers/space" \
+    "$target_home/Pictures/wallpapers/mimimi" \
+    "$target_home/Pictures/wallpapers/others"
+
+  shopt -s nullglob
+  local dir style image dst
+  for dir in "$src"/*/; do
+    [[ -d "$dir" ]] || continue
+    style="$(basename "$dir")"
+    for image in "$dir"*.png; do
+      dst="$target_home/Pictures/wallpapers/$style/$(basename "$image")"
+      if [[ ! -e "$dst" ]]; then
+        install -m 644 -o "$target_uid" -g "$target_gid" "$image" "$dst"
+      fi
+    done
+  done
+  shopt -u nullglob
+
+  echo "Обои: $target_home/Pictures/wallpapers/{unit3,gaming,space,mimimi,others}"
+}
+
+install_wallpapers
+
 # ── выбор компонентов ────────────────────────────────────────────────
 PI=0
 B4=0

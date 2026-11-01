@@ -1,4 +1,5 @@
-/* Unit-3 styles for Zen/Firefox about: pages. Web sites are not touched. */
+/* Unit-3 styles for Zen/Firefox about: pages. Web sites are not touched.
+   Colours and radii are rendered at runtime by unit3-palette. */
 
 @-moz-document url("about:newtab"),
                url("about:home"),
@@ -86,4 +87,6 @@
     background: #cbc4a9 !important;
     color: #2e2a1f !important;
   }
+
+  /* U3_BUTTON_RADIUS */
 }

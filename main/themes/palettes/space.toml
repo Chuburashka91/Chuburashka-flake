@@ -1,0 +1,51 @@
+# space — calm deep-space theme: black, blue and violet, soft corners.
+name = "space"
+label = "Space"
+order = 3
+
+colorScheme = "dark"
+radius = "10px"
+buttonRadius = "10px"
+
+paper = "#050713"
+paper2 = "#0a0d1d"
+paper3 = "#10152b"
+paper4 = "#171e3a"
+paperLight = "#0c1124"
+overlay = "#9e000000"
+selectionText = "#f3f5ff"
+
+ink = "#b9c3e6"
+inkStrong = "#e8edff"
+inkSoft = "#7c87ad"
+inkMuted = "#5b6588"
+
+accent = "#5b7cfa"
+accentSoft = "#8a9dff"
+accent200 = "#a7b4ff"
+accent300 = "#c0c9ff"
+accent600 = "#3f5fd6"
+accent700 = "#324cb0"
+accent800 = "#263b8a"
+accent900 = "#1b2a63"
+
+danger = "#ff5d7a"
+green = "#9b6cff"
+gold = "#b388ff"
+lineStrong = "#2f3a63"
+rubber = "#26305a"
+black = "#000000"
+spinText = "#e8edff"
+
+btopAccent = "#5b7cfa"
+btopAccentSoft = "#8a9dff"
+btopGold = "#9b6cff"
+btopGreen = "#9b6cff"
+btopPaperDim = "#1a2244"
+btopInkSoft = "#7c87ad"
+btopBright = "#e8edff"
+btopPaper4 = "#2f3a63"
+
+steamWarning = "#9b6cff"
+steamWarningText = "#f3f5ff"
+steamSuccessText = "#5b7cfa"

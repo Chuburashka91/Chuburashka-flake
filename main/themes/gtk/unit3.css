@@ -1,4 +1,6 @@
 /* Unit-3 GTK theme — paper / ink / rust.
+   Colour and radius values are rendered at runtime by unit3-palette from
+   ~/.config/unit3/palettes/*.toml; edit the palette, not the literals below.
    Loaded via gtk.gtk3.extraCss / gtk.gtk4.extraCss, so it applies on top
    of the Colloid theme to Nemo and other GTK apps. */
 

@@ -155,13 +155,58 @@ hyprctl dispatch exec 'qs -p ~/.config/quickshell/widgets/VolumeBar.qml'
 The paper palette is the whole UI. Do not describe any surface as "dark NieR"
 except the bar:
 
-- Quickshell/QML widgets carry the paper colours inline (`#463f2e`, `#d6cfb5`,
-  `#6e2a2a`). The old `quickshell/theme/Theme.qml` singleton (NieR colours,
-  never imported by anything) was deleted during cleanup — do not recreate it.
+- Menu, ControlCenter, Help and WallpaperPicker use
+  `settings/U3Palette.qml`; VolumeBar still carries inline colours. The old
+  `quickshell/theme/Theme.qml` singleton (NieR colours, never imported) was
+  deleted — do not recreate it.
 - Waybar is intentionally the only dark surface: `rgba(11, 10, 9, 0.92)` in
   `main/home/waybar/style.nix`. It reads as a bar over the wallpaper.
 - `main/home/swaync/style.css` still holds gruvbox colours, but `exec-once`
   never starts swaync.
+
+### Runtime palettes (2026-11-02)
+
+- **`main/themes/palettes/*.toml` are the palette sources.** Four themes:
+  `unit3` (paper/ink/rust, square), `gaming` (black/red/blue, square),
+  `space` (black/blue/violet, `radius = "10px"`), `mimimi` (soft pink /
+  green / yellow, `radius = "20px"`).
+- `main/themes/runtime/unit3-palette.py` renders the templates in
+  `main/themes/{gtk,vencord,zen,steam,btop}` with the selected TOML into
+  `~/.config/unit3/profiles/<name>/`, writes `qml.json`, switches the
+  `~/.config/unit3/active` symlink and writes `~/.config/unit3/style`.
+- `main/home/unit3-palette.nix` copies templates/script once per rebuild and
+  seeds `~/.config/unit3/palettes/` only when a file is missing; the live
+  editable copies are there. It runs the first/current render; **switching
+  itself never invokes Nix**. The same module's `unit3Wallpapers` activation
+  seeds `~/Pictures/wallpapers/{unit3,gaming,space,mimimi,others}` from
+  `files/wallpapers/` (missing files only). `install.sh` does the same early
+  when the target home already exists.
+- `SUPER+ALT+P` → `unit3-palette next` (style only); `SUPER+SHIFT+P` →
+  `unit3-palette next --wallpaper` (next style + random wallpaper from its
+  folder). `unit3-palette set <name>`, `current`, `list`, `remember <file>`.
+- `unit3-palette` is a profile wrapper with Python in its runtime PATH, so the
+  Hyprland `exec` binds use its absolute `/etc/profiles/per-user/chu/bin/...`
+  path. The wrapper survives a minimal session PATH.
+- App integration: GTK imports `active/gtk.css`; Vencord and btop use
+  `mkOutOfStoreSymlink` to the active profile; Zen chrome/userContent are
+  symlinked by activation; Steam's `custom.css` and installed skin are
+  symlinks. Quickshell `ControlCenter`, `Help`, `Menu` and `WallpaperPicker`
+  read `active/qml.json` through `settings/U3Palette.qml`.
+- Current style is also `~/.config/unit3/style` and the `U3_STYLE`
+  environment variable (set via `hyprctl setenv`). Wallpaper scripts read the
+  file and use `~/Pictures/wallpapers/<style>/`, falling back to `others`.
+- The selected wallpaper is persisted in `~/.config/unit3/wallpaper` and
+  restored by `init-wallpaper` at login together with `style`; it is not
+  reset to a default image.
+- Wallpaper picker (`SUPER+P`): left/right cycles the current style folder,
+  up/down cycles style folders, and applying an image from another folder
+  runs `unit3-palette set <style>` first. It is palette-aware too.
+- Launcher (`SUPER+D`, `widgets/Menu.qml`) now uses the same `U3Palette`.
+- A palette switch is mostly hot: GTK/Steam/btop need an app restart,
+  Vencord/Zen need a reload/restart; Quickshell ControlCenter, Help, Menu and
+  WallpaperPicker update via the watched style file.
+- Not in this pass: Waybar (intentionally dark), rofi `.rasi`, VolumeBar and
+  hyprlock.
 
 ### Application themes
 
@@ -187,12 +232,12 @@ except the bar:
     generated `chrome/zen-themes.css` can override colors. Use neutral
     workspace colors if a consistent Unit-3 look is wanted.
 - Steam:
-  - `main/themes/steam/unit3.css` — custom CSS for the Adwaita-for-Steam skin
-    (paper/ink/rust variables, Maple Mono, square geometry).
-  - `main/home/gaming.nix` activation does both steps on every rebuild: copies
-    the CSS to `~/.config/AdwSteamGtk/custom.css`, then runs
-    `adwaita-for-steam --custom-css ~/.config/AdwSteamGtk/custom.css` so the
-    skin is applied to Steam itself.
+  - `main/themes/steam/unit3.css` — template for the Adwaita-for-Steam skin;
+    `unit3-palette` renders the active palette to `active/steam.css`.
+  - `main/home/gaming.nix` symlinks `~/.config/AdwSteamGtk/custom.css` to the
+    active profile and applies the skin on rebuild. The installed skin's
+    `custom.css` is also a symlink, so a runtime switch only needs a Steam
+    restart.
   - The installer is skipped while Steam is running (`pgrep -x steam`): Steam
     rewrites `steamui/` on exit and the skin would silently vanish. Close Steam
     and rebuild to apply. A failure is reported on stderr but does not fail the

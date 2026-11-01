@@ -2,6 +2,7 @@
   lib,
   pkgs,
   host,
+  config,
   ...
 }:
 let
@@ -16,6 +17,9 @@ let
     ];
   };
   icon-theme-name = "Papirus-Dark";
+  runtimeCss = ''
+    @import url("file://${config.home.homeDirectory}/.config/unit3/active/gtk.css");
+  '';
 in
 {
   gtk = {
@@ -42,7 +46,7 @@ in
       extraConfig = {
         gtk-application-prefer-dark-theme = lib.mkForce true;
       };
-      extraCss = builtins.readFile ../themes/gtk/unit3.css;
+      extraCss = runtimeCss;
     };
 
     gtk4 = {
@@ -53,7 +57,7 @@ in
       extraConfig = {
         gtk-application-prefer-dark-theme = lib.mkForce true;
       };
-      extraCss = builtins.readFile ../themes/gtk/unit3.css;
+      extraCss = runtimeCss;
     };
   };
 

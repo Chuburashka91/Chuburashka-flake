@@ -27,6 +27,8 @@
       "$mod, B, exec, zen-beta"
       "$mod SHIFT, B, exec, env BTOP_OPACITY=0.85 btop-paper"
       "$mod, P, exec, /home/${username}/.config/quickshell/wallpaper.sh"
+      "$mod ALT, P, exec, /etc/profiles/per-user/${username}/bin/unit3-palette next"
+      "$mod SHIFT, P, exec, /etc/profiles/per-user/${username}/bin/unit3-palette next --wallpaper"
       "$mod, V, exec, clipboard"
       # "$mod, M, exec, pgrep -x spotify >/dev/null && hyprctl dispatch togglespecialworkspace spotify || spotify"
 

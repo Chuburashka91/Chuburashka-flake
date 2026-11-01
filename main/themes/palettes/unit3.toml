@@ -1,0 +1,51 @@
+# Unit-3 — the original paper / ink / rust theme.
+name = "unit3"
+label = "Unit-3"
+order = 1
+
+colorScheme = "light"
+radius = "0"
+buttonRadius = "0"
+
+paper = "#d6cfb5"
+paper2 = "#cbc4a9"
+paper3 = "#c2baa0"
+paper4 = "#b9b096"
+paperLight = "#ded7bf"
+overlay = "#8cb8af93"
+selectionText = "#f5f0e6"
+
+ink = "#463f2e"
+inkStrong = "#2e2a1f"
+inkSoft = "#7a7358"
+inkMuted = "#9a9278"
+
+accent = "#6e2a2a"
+accentSoft = "#8a3a3a"
+accent200 = "#b85a5a"
+accent300 = "#a04a4a"
+accent600 = "#5a2222"
+accent700 = "#4a1a1a"
+accent800 = "#3a1414"
+accent900 = "#2e1010"
+
+danger = "#8a3a3a"
+green = "#4f7a5a"
+gold = "#a07a2a"
+lineStrong = "#6b5a45"
+rubber = "#8b7355"
+black = "#000000"
+spinText = "#000000"
+
+btopAccent = "#b5443f"
+btopAccentSoft = "#c45a55"
+btopGold = "#c4953a"
+btopGreen = "#6f9f73"
+btopPaperDim = "#b9a98a"
+btopInkSoft = "#8a8068"
+btopBright = "#f4ecd8"
+btopPaper4 = "#cbbd9f"
+
+steamWarning = "#c08a2a"
+steamWarningText = "#6e5216"
+steamSuccessText = "#3f6649"

@@ -31,6 +31,7 @@
       ./swaylock.nix
       ./swayosd.nix
       ./swaync/swaync.nix
+      ./unit3-palette.nix
       ./waypaper.nix
       ./xdg-mimes.nix
       ./zsh

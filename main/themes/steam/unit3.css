@@ -1,6 +1,9 @@
 /*
  * Unit-3 for Adwaita-for-Steam — paper / ink / rust.
  *
+ * Colours and radii are rendered at runtime by unit3-palette from
+ * ~/.config/unit3/palettes/*.toml; edit the palette, not the literals.
+ *
  * Loaded after the skin as "custom CSS":
  *   ~/.config/AdwSteamGtk/custom.css      (AdwSteamGtk → Preferences → Custom CSS)
  *   adwaita-for-steam --custom-css FILE   (CLI installer)

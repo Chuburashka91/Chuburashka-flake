@@ -5,6 +5,9 @@
  * @version 1.0.0
  */
 
+/* Colours and radii are rendered at runtime by unit3-palette from
+   ~/.config/unit3/palettes/*.toml; edit the palette, not the literals. */
+
 /* ── Palette ─────────────────────────────────────────────────────── */
 
 :root {
