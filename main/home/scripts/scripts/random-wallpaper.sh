@@ -14,7 +14,7 @@ wallpapers_folder="$wallpaper_path/$style"
 current_wallpaper=$(readlink "$wallpaper_path/wallpaper" 2> /dev/null)
 current_wallpaper_name="$(basename "$current_wallpaper")"
 
-mapfile -t wallpaper_list < <(find "$wallpapers_folder" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) 2>/dev/null | sort)
+mapfile -t wallpaper_list < <(find "$wallpapers_folder" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.gif' \) 2>/dev/null | sort)
 wallpaper_count=${#wallpaper_list[@]}
 [ "$wallpaper_count" -gt 0 ] || exit 0
 

@@ -198,9 +198,13 @@ except the bar:
 - The selected wallpaper is persisted in `~/.config/unit3/wallpaper` and
   restored by `init-wallpaper` at login together with `style`; it is not
   reset to a default image.
-- Wallpaper picker (`SUPER+P`): left/right cycles the current style folder,
+- Wallpaper picker (`SUPER+P`): scans `png/jpg/jpeg/webp/gif` (animated gifs
+  are supported by awww). Left/right cycles the current style folder,
   up/down cycles style folders, and applying an image from another folder
-  runs `unit3-palette set <style>` first. It is palette-aware too.
+  runs `wallpaper-apply` (which sets the palette first). The helper waits for
+  `awww`, quotes paths passed as argv (spaces in user filenames are fine) and
+  restarts the daemon once if it died mid-transition. The picker waits for
+  the helper before closing. It is palette-aware too.
 - Launcher (`SUPER+D`, `widgets/Menu.qml`) now uses the same `U3Palette`.
 - A palette switch is mostly hot: GTK/Steam/btop need an app restart,
   Vencord/Zen need a reload/restart; Quickshell ControlCenter, Help, Menu and

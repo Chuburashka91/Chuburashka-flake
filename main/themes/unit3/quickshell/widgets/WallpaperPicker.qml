@@ -26,7 +26,8 @@ ShellRoot {
     property string styleName:     "unit3"
     property string wallpaperDir:  xdgPictures + "/wallpapers/" + styleName
     property string activeMonitor: ""   // nom du monitor actif (où est la souris)
-    property string paletteBin:    "/etc/profiles/per-user/" + (Quickshell.env("USER") || "") + "/bin/unit3-palette"
+    property string applyBin:      "/etc/profiles/per-user/" + (Quickshell.env("USER") || "") + "/bin/wallpaper-apply"
+    property bool   closeAfterApply: false
 
     // ── Détecter le monitor actif ──
     Process {
@@ -45,7 +46,7 @@ ShellRoot {
     // ── Lire le style courant, puis lister ses wallpapers ──
     Process {
         id: getStyleProc
-        command: ["sh","-c","cat " + root.xdgConfigHome + "/unit3/style 2>/dev/null || echo unit3"]
+        command: ["sh","-c","cat \"" + root.xdgConfigHome + "/unit3/style\" 2>/dev/null || echo unit3"]
         running: true
         stdout: StdioCollector {
             onStreamFinished: {
@@ -62,7 +63,7 @@ ShellRoot {
 
     Process {
         id: listWallpapers
-        command: ["sh","-c","ls " + root.wallpaperDir + " | grep -iE '\\.(jpg|jpeg|png|webp)$'"]
+        command: ["sh","-c","ls -- \"" + root.wallpaperDir + "\" | grep -iE '\\.(jpg|jpeg|png|webp|gif)$'"]
         running: false
         stdout: StdioCollector {
             onStreamFinished: {
@@ -83,24 +84,20 @@ ShellRoot {
         root.wallpapers = []
         // wallpaperDir is a binding; restart the listing process for the new dir.
         listWallpapers.running = false
-        listWallpapers.command = ["sh","-c","ls " + root.wallpaperDir + " | grep -iE '\\.(jpg|jpeg|png|webp)$'"]
+        listWallpapers.command = ["sh","-c","ls -- \"" + root.wallpaperDir + "\" | grep -iE '\\.(jpg|jpeg|png|webp|gif)$'"]
         listWallpapers.running = true
     }
 
     // ── Appliquer le wallpaper, et le style s'il vient d'un autre dossier ──
+    // The picker stays open until the helper finishes. Closing immediately
+    // could kill `unit3-palette set`/`awww img` halfway through, which is what
+    // left the awww daemon stuck on some (large) mimimi images.
     function applyWallpaper(idx, monitor) {
         if (root.wallpapers.length === 0) return
         var file = root.wallpaperDir + "/" + root.wallpapers[idx]
-        var cmds = []
-        if (root.styleName !== root.activeStyle) {
-            cmds.push(root.paletteBin + " set " + root.styleName)
-            root.activeStyle = root.styleName
-        }
-        cmds.push(root.paletteBin + " remember \"" + file + "\"")
-        cmds.push(monitor === "both"
-            ? "awww img \"" + file + "\""
-            : "awww img --outputs " + monitor + " \"" + file + "\"")
-        applyProc.command = ["sh", "-c", cmds.join("; ")]
+        if (root.styleName !== root.activeStyle) root.activeStyle = root.styleName
+        root.closeAfterApply = true
+        applyProc.command = [root.applyBin, root.styleName, file, monitor || "both"]
         applyProc.running = true
     }
 
@@ -108,6 +105,12 @@ ShellRoot {
         id: applyProc
         command: ["sh","-c","echo noop"]
         running: false
+        onRunningChanged: {
+            if (!running && root.closeAfterApply) {
+                root.closeAfterApply = false
+                root.doClose()
+            }
+        }
     }
 
     // ── Gestion du curseur Hyprland ──
@@ -242,7 +245,7 @@ ShellRoot {
                                         Behavior on color{ColorAnimation{duration:200}} }
                                     MouseArea { id:ma1;anchors.fill:parent;hoverEnabled:true
                                         onEntered:fill1.width=parent.width;onExited:fill1.width=0
-                                        onClicked:{ root.applyWallpaper(root.currentIndex, root.activeMonitor); root.doClose() } }
+                                        onClicked:{ root.applyWallpaper(root.currentIndex, root.activeMonitor) } }
                                 }
 
                                 // Bouton les deux écrans
@@ -257,7 +260,7 @@ ShellRoot {
                                         Behavior on color{ColorAnimation{duration:200}} }
                                     MouseArea { id:ma2;anchors.fill:parent;hoverEnabled:true
                                         onEntered:fill2.width=parent.width;onExited:fill2.width=0
-                                        onClicked:{ root.applyWallpaper(root.currentIndex, "both"); root.doClose() } }
+                                        onClicked:{ root.applyWallpaper(root.currentIndex, "both") } }
                                 }
                             }
                         }
@@ -283,8 +286,8 @@ ShellRoot {
                     Keys.onRightPressed:  root.navigate(1)
                     Keys.onUpPressed:     root.cycleStyle(-1)
                     Keys.onDownPressed:   root.cycleStyle(1)
-                    Keys.onReturnPressed:  { root.applyWallpaper(root.currentIndex, "both"); root.doClose() }
-                    Keys.onSpacePressed:  { root.applyWallpaper(root.currentIndex, "both"); root.doClose() }
+                    Keys.onReturnPressed:  { root.applyWallpaper(root.currentIndex, "both") }
+                    Keys.onSpacePressed:  { root.applyWallpaper(root.currentIndex, "both") }
                     readonly property int n: root.wallpapers.length
 
                     // Dimensions de base (taille de la vignette centrale à pleine échelle)
@@ -365,7 +368,7 @@ ShellRoot {
                                 Image {
                                     anchors.fill: parent
                                     anchors.margins: 2
-                                    source: "file://" + root.wallpaperDir + "/" + root.wallpapers[thumb.wIdx]
+                                    source: "file://" + encodeURI(root.wallpaperDir + "/" + root.wallpapers[thumb.wIdx])
                                     fillMode: Image.PreserveAspectCrop
                                     asynchronous: true
                                     smooth: true

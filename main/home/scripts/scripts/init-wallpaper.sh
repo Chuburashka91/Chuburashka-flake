@@ -35,7 +35,7 @@ if [[ -z "$chosen" && -n "$current" && -f "$current" && "$current" == "$style_di
 fi
 
 if [[ -z "$chosen" ]]; then
-    mapfile -t wallpapers < <(find "$style_dir" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) 2>/dev/null | sort)
+    mapfile -t wallpapers < <(find "$style_dir" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.gif' \) 2>/dev/null | sort)
     if [ "${#wallpapers[@]}" -gt 0 ]; then
         chosen="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
     fi

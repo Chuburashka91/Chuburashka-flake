@@ -61,8 +61,10 @@ Unit-3, Waybar, Kitty, Zsh/p10k и набор повседневных прил�
 - `radius` — все поверхности, `buttonRadius` — только кнопки. Например,
   `radius = "0"; buttonRadius = "6px";` скруглит только кнопки.
 - Обои берутся из `~/Pictures/wallpapers/<style>/` (fallback — `others`).
-  Выбранная обоина и стиль сохраняются в `~/.config/unit3/` и
-  восстанавливаются при следующем входе.
+  Поддерживаются `png`, `jpg`, `jpeg`, `webp` и `gif` (анимированные gif
+  тоже работают через awww). Выбранная обоина и стиль сохраняются в
+  `~/.config/unit3/` и восстанавливаются при следующем входе. Имена файлов
+  с пробелами поддерживаются.
 
 #### Vencord / Vesktop
 
@@ -291,8 +293,10 @@ Demo: [YouTube — Unit-3 rice](https://youtu.be/4b-UcpTkHts).
 - `radius` affects every surface, `buttonRadius` only buttons. E.g.
   `radius = "0"; buttonRadius = "6px";` rounds buttons only.
 - Wallpapers come from `~/Pictures/wallpapers/<style>/` (fallback `others`).
-  The chosen wallpaper and style are persisted under `~/.config/unit3/` and
-  restored at the next login.
+  `png`, `jpg`, `jpeg`, `webp` and `gif` are supported; animated gifs work
+  through awww. The chosen wallpaper and style are persisted under
+  `~/.config/unit3/` and restored at the next login. Filenames with spaces
+  are supported.
 
 #### Vencord / Vesktop
 
