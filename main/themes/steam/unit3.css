@@ -1,0 +1,151 @@
+/*
+ * Unit-3 for Adwaita-for-Steam — paper / ink / rust.
+ *
+ * Loaded after the skin as "custom CSS":
+ *   ~/.config/AdwSteamGtk/custom.css      (AdwSteamGtk → Preferences → Custom CSS)
+ *   adwaita-for-steam --custom-css FILE   (CLI installer)
+ *
+ * Only the skin's own --adw-* variables are overridden, plus a few stable
+ * Chromium scrollbars. No Steam class hashes, so it survives client updates.
+ */
+
+/* :root:root beats the skin's color-theme :root imports, which are loaded
+ * AFTER custom.css; without the extra specificity a selected color theme
+ * (Gruvbox, Catppuccin, …) would win with its own !important. */
+:root:root
+{
+	/* Force the light branch of the skin's light-dark() variables. */
+	color-scheme: light !important;
+	--adw-color-scheme: light !important;
+
+	/* ── Palette ─────────────────────────────────────────────────── */
+	/* paper #d6cfb5 · paper-2 #cbc4a9 · paper-3 #c2baa0
+	   paper-light #ded7bf · ink #463f2e · ink-strong #2e2a1f
+	   ink-soft #7a7358 · accent #6e2a2a · accent-soft #8a3a3a */
+
+	/* Accent / links / filled buttons */
+	--adw-accent-bg-light: #6e2a2a !important;
+	--adw-accent-bg-dark: #6e2a2a !important;
+	--adw-accent-fg: #ded7bf !important;
+	--adw-accent: #6e2a2a !important;
+
+	/* Destructive */
+	--adw-destructive-bg-light: #8a3a3a !important;
+	--adw-destructive-bg-dark: #8a3a3a !important;
+	--adw-destructive-fg: #ded7bf !important;
+	--adw-destructive: #8a3a3a !important;
+
+	/* Success (Vencord's green, darkened for text on paper) */
+	--adw-success-bg-light: #4f7a5a !important;
+	--adw-success-bg-dark: #4f7a5a !important;
+	--adw-success-fg: #f5f0e6 !important;
+	--adw-success: #3f6649 !important;
+
+	/* Warning (Vencord's gold, dark enough for text) */
+	--adw-warning-bg-light: #c08a2a !important;
+	--adw-warning-bg-dark: #c08a2a !important;
+	--adw-warning-fg: #2e2a1f !important;
+	--adw-warning: #6e5216 !important;
+
+	/* Error */
+	--adw-error-bg-light: #8a3a3a !important;
+	--adw-error-bg-dark: #8a3a3a !important;
+	--adw-error-fg: #ded7bf !important;
+	--adw-error: #8a3a3a !important;
+
+	/* ── Surfaces ────────────────────────────────────────────────── */
+	--adw-window-bg: #d6cfb5 !important;
+	--adw-window-fg: #2e2a1f !important;
+
+	--adw-view-bg: #ded7bf !important;
+	--adw-view-fg: #2e2a1f !important;
+
+	--adw-headerbar-bg: #ded7bf !important;
+	--adw-headerbar-fg: #2e2a1f !important;
+	--adw-headerbar-backdrop: #d6cfb5 !important;
+	--adw-headerbar-shade: rgba(70, 63, 46, 0.25) !important;
+	--adw-headerbar-darker-shade: rgba(70, 63, 46, 0.12) !important;
+
+	--adw-sidebar-bg: #cbc4a9 !important;
+	--adw-sidebar-fg: #2e2a1f !important;
+	--adw-sidebar-backdrop: #d6cfb5 !important;
+	--adw-sidebar-shade: rgba(70, 63, 46, 0.12) !important;
+
+	--adw-secondary-sidebar-bg: #c2baa0 !important;
+	--adw-secondary-sidebar-fg: #2e2a1f !important;
+	--adw-secondary-sidebar-backdrop: #cbc4a9 !important;
+	--adw-secondary-sidebar-shade: rgba(70, 63, 46, 0.12) !important;
+	--adw-secondary-sidebar-border: rgba(70, 63, 46, 0.25) !important;
+
+	--adw-card-bg: #ded7bf !important;
+	--adw-card-fg: #2e2a1f !important;
+	--adw-card-shade: rgba(70, 63, 46, 0.25) !important;
+
+	--adw-dialog-bg: #ded7bf !important;
+	--adw-dialog-fg: #2e2a1f !important;
+
+	--adw-popover-bg: #ded7bf !important;
+	--adw-popover-fg: #2e2a1f !important;
+	--adw-popover-shade: rgba(70, 63, 46, 0.12) !important;
+	--adw-popover-border: rgba(70, 63, 46, 0.25) !important;
+
+	--adw-thumbnail-bg: #c2baa0 !important;
+	--adw-thumbnail-fg: #2e2a1f !important;
+
+	--adw-shade: rgba(70, 63, 46, 0.12) !important;
+	--adw-banner: #c2baa0 !important;
+	--adw-banner-fg: #2e2a1f !important;
+	--adw-window-outline: rgba(46, 42, 31, 0.25) !important;
+
+	/* Steam presence dots */
+	--adw-user-offline: #7a7358 !important;
+	--adw-user-online: #4f7a5a !important;
+	--adw-user-ingame: #6e2a2a !important;
+
+	/* Tooltips invert, as on the GTK side */
+	--adw-tooltip-bg: #463f2e !important;
+	--adw-tooltip-fg: #ded7bf !important;
+
+	/* ── Interaction washes (ink over paper) ─────────────────────── */
+	--adw-border-opacity: 25% !important;
+	--adw-thin-border-opacity: 12% !important;
+	--adw-focus-border-opacity: 50% !important;
+	--adw-hover-opacity: 8% !important;
+	--adw-active-opacity: 16% !important;
+	--adw-selected-opacity: 12% !important;
+	--adw-selected-hover-opacity: 16% !important;
+	--adw-selected-active-opacity: 22% !important;
+
+	/* ── Square geometry (avatars/status dots stay round) ────────── */
+	--adw-button-radius: 0 !important;
+	--adw-button-pill-radius: 0 !important;
+	--adw-card-radius: 0 !important;
+	--adw-checkbox-radius: 0 !important;
+	--adw-dialog-radius: 0 !important;
+	--adw-alert-dialog-radius: 0 !important;
+	--adw-alert-dialog-button-radius: 0 !important;
+	--adw-entry-radius: 0 !important;
+	--adw-entry-small-radius: 0 !important;
+	--adw-gameicon-radius: 0 !important;
+	--adw-menu-radius: 0 !important;
+	--adw-menu-item-radius: 0 !important;
+
+	/* ── Type: Maple Mono, like GTK and Quickshell ───────────────── */
+	--adw-text-font-primary: "Maple Mono" !important;
+	--adw-text-font-monospace-primary: "Maple Mono" !important;
+}
+
+/* Scrollbar: ink-soft thumb, rust on hover (matches unit3.css). */
+body.DesktopUI ::-webkit-scrollbar-thumb,
+html.client_chat_frame ::-webkit-scrollbar-thumb
+{
+	background: #7a7358 !important;
+	border: 1px solid #d6cfb5 !important;
+	border-radius: 0 !important;
+}
+
+body.DesktopUI ::-webkit-scrollbar-thumb:hover,
+html.client_chat_frame ::-webkit-scrollbar-thumb:hover
+{
+	background: #6e2a2a !important;
+}

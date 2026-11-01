@@ -73,7 +73,8 @@ Loaded by: `main/home/gtk.nix` via `gtk3.extraCss` and `gtk4.extraCss`.
 
 Recent work:
 
-- `label { color: inherit; }` fixes Colloid's hardcoded white labels.
+- `label { color: inherit; }` stops Colloid's light label colour from winning on
+  paper.
 - Menubar: paper background, dark text, rust hover/selected.
 - Nemo selection:
   - `.nemo-canvas-item:selected`: `rgba(139, 115, 85, 0.8)` background,
@@ -82,10 +83,12 @@ Recent work:
   - Nemo rubberband: transparent `rgba(139, 115, 85, 0.3)` with
     `#6B5A45` border.
 - GIMP menus (resolved, verified 2026-11-01): items with hierarchy
-  `menuitem > box.horizontal > label` inherited light grey from Colloid
-  `common.css:285:18` (`color: #dcdcdc`). Targeted rules cover
-  `menuitem > box.horizontal` / its label plus hover and disabled variants.
-  Do not reintroduce the broad `menuitem box` block.
+  `menuitem > box.horizontal > label` inherited Colloid's light label colour.
+  Targeted rules cover `menuitem > box.horizontal` / its label plus hover and
+  disabled variants. Do not reintroduce the broad `menuitem box` block. The
+  old `common.css:285:18` / `#dcdcdc` citation is stale: no `common.css` exists
+  in the installed Colloid build and `#dcdcdc` does not occur in it — check the
+  winning provider in GTK Inspector.
 - GTK Inspector custom CSS is a `<data>` provider and can override the file.
   Use Pause/disable it when checking the real theme.
 - gsimplecal (`calendar` CSS node, GTK3): Colloid paints the day numbers
@@ -175,6 +178,21 @@ except the bar:
   - Zen workspace themes are part of workspace state, not this CSS; a
     generated `chrome/zen-themes.css` can override colors. Use neutral
     workspace colors if a consistent Unit-3 look is wanted.
+- Steam:
+  - `main/themes/steam/unit3.css` — custom CSS for the Adwaita-for-Steam skin
+    (paper/ink/rust variables, Maple Mono, square geometry).
+  - `main/home/gaming.nix` activation does both steps on every rebuild: copies
+    the CSS to `~/.config/AdwSteamGtk/custom.css`, then runs
+    `adwaita-for-steam --custom-css ~/.config/AdwSteamGtk/custom.css` so the
+    skin is applied to Steam itself.
+  - The installer is skipped while Steam is running (`pgrep -x steam`): Steam
+    rewrites `steamui/` on exit and the skin would silently vanish. Close Steam
+    and rebuild to apply. A failure is reported on stderr but does not fail the
+    activation — no Steam installed is not an error.
+  - A Steam client update wipes the skin; the next rebuild puts it back.
+  - AdwSteamGtk 0.8.0 passes `--custom-css` without a path; skin 4.4 needs one.
+    `gaming.nix` patches that call until nixpkgs ships 0.9.1+. The GUI stays
+    usable for a manual re-apply and for editing the CSS.
 - btop:
   - `main/themes/btop/unit3.theme`
   - `main/home/btop.nix`
