@@ -28,7 +28,10 @@ Unit-3, Waybar, Kitty, Zsh/p10k и набор повседневных прил�
 - Панель управления (`SUPER+Tab`): звук, Wi-Fi, Bluetooth, яркость,
   медиа, быстрые действия.
 - Выбор обоев (`SUPER+P`).
-- Уведомления, VolumeBar, Companions.
+- Уведомления, VolumeBar.
+- Companions есть в коде, но выключены
+  (`Settings.companionsEnabled = false`). Код не удалён — кто включит, тот сам
+  и оформляет под бумажную палитру.
 - Справка `SUPER+F1`.
 - Тема Unit-3: сепия, бумажная фактура, сетка, русские подписи.
 
@@ -158,8 +161,7 @@ sudo reboot
 - `main/home/git.nix` — личный git-конфиг (имя/email).
 - `main/hardware-configuration.nix` — machine-specific; создаётся установщиком.
 - `.pi/`, `*.jsonl` — сессии агента и история.
-- `/result`, `/result-*`, `flake.lock.back`, `.installer-backup-*` — артефакты
-  сборки и бэкапы.
+- `/result`, `/result-*`, `.installer-backup-*` — артефакты сборки и бэкапы.
 
 `secrets/common.yaml` зашифрован sops/age. Приватный age-ключ
 `~/.config/sops/age/keys.txt` не должен попадать в репозиторий.
@@ -235,7 +237,10 @@ Demo: [YouTube — Unit-3 rice](https://youtu.be/4b-UcpTkHts).
 - Control panel (`SUPER+Tab`): volume, Wi-Fi, Bluetooth, brightness, media,
   quick actions.
 - Wallpaper picker (`SUPER+P`).
-- Notifications, VolumeBar, Companions.
+- Notifications, VolumeBar.
+- Companions ship in the code but are switched off
+  (`Settings.companionsEnabled = false`). The code stays — whoever enables them
+  restyles them to the paper palette themselves.
 - Help (`SUPER+F1`).
 - Unit-3 theme: sepia, paper texture, grid, Russian labels.
 
@@ -365,8 +370,7 @@ These files/directories are excluded via `.gitignore`:
 - `main/home/git.nix` — personal Git config (name/email).
 - `main/hardware-configuration.nix` — machine-specific; created by the installer.
 - `.pi/`, `*.jsonl` — agent sessions and history.
-- `/result`, `/result-*`, `flake.lock.back`, `.installer-backup-*` — build
-  artifacts and backups.
+- `/result`, `/result-*`, `.installer-backup-*` — build artifacts and backups.
 
 `secrets/common.yaml` is encrypted with sops/age. The private age key
 `~/.config/sops/age/keys.txt` must not end up in the repository.
