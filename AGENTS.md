@@ -171,6 +171,14 @@ except the bar:
   - Enable in Vencord: Settings → Themes → Local Themes → Unit-3.
   - **Use the light Discord theme** with this local theme, otherwise some
     tokens are overridden. Reload with Ctrl+R after CSS changes.
+  - Search/profile/button/badge text is now set explicitly with the
+    `--u3-on-surface*` aliases, so those components no longer depend on the
+    Vesktop light/dark setting. Dark islands (tooltip premium footer, avatar
+    overflow) intentionally keep light text — do not flatten them with a
+    global `* { color: ... }`.
+  - Guild view: header name, channel names (including unread), boost card,
+    message context menu and blurple “новое” badges are explicit too;
+    `--brand-500…900` are rust so Discord's blurple no longer leaks.
 - Zen Browser:
   - `main/themes/zen/userChrome.css`, `userContent.css`
   - loaded by `main/home/browser.nix`.

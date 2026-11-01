@@ -23,6 +23,13 @@
   --u3-green:       #4f7a5a;
   --u3-gold:        #a07a2a;
 
+  /* Semantic on-surface pairs. Components below use these instead of
+     inheriting Discord's light/dark theme colours, so a palette switch only
+     has to change the tokens, not every selector. */
+  --u3-on-surface:       var(--u3-ink-strong);
+  --u3-on-surface-muted: var(--u3-ink-soft);
+  --u3-on-accent:        var(--u3-paper);
+
   color-scheme: light;
   accent-color: var(--u3-accent);
 
@@ -114,6 +121,19 @@
   --brand-experiment-800: #3a1414;
   --brand-experiment-900: #2e1010;
   --focus-primary:        var(--u3-accent);
+
+  /* Modern Discord brand tokens (badges, buttons, links). Without these
+     Discord keeps blurple next to the rust accent. */
+  --brand-100: var(--u3-paper);
+  --brand-200: #b85a5a;
+  --brand-300: #a04a4a;
+  --brand-400: var(--u3-accent-soft);
+  --brand-500: var(--u3-accent);
+  --brand-560: var(--u3-accent);
+  --brand-600: #5a2222;
+  --brand-700: #4a1a1a;
+  --brand-800: #3a1414;
+  --brand-900: #2e1010;
 
   /* Status */
   --status-green:  var(--u3-green);
@@ -514,4 +534,90 @@ pre,
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--u3-accent);
+}
+
+/* ── Explicit text on paper ────────────────────────────────────────
+   Discord's dark theme hardcodes white in these components. Scope every
+   rule to the component so dark islands (tooltip premium footer, avatar
+   overflow) keep their light-on-dark text. Class hashes change; the
+   semantic prefixes are the stable part. */
+
+[class*="searchBar"] {
+  background: var(--u3-paper-3) !important;
+  color: var(--u3-on-surface) !important;
+}
+
+[class*="searchBar"] * {
+  color: inherit !important;
+}
+
+[class*="displayName"],
+[class*="titleClickable"],
+[class*="headerTitle"],
+[class*="header_bf"],
+[class*="panelTitleContainer"] [class*="title"] {
+  color: var(--u3-on-surface) !important;
+}
+
+[class*="userTagUsername"],
+[class*="statusText"],
+[class*="animatedText"] {
+  color: var(--u3-on-surface-muted) !important;
+}
+
+/* Button labels inherit the button colour, so filled buttons stay
+   paper-on-rust while secondary/link buttons become ink-on-paper. */
+[class*="buttonChildren"],
+[class*="buttonChildren"] * {
+  color: inherit !important;
+}
+
+button:not([class*="lookFilled"]):not([class*="lookDanger"]):not([class*="lookGreen"]):not([class*="lookBrand"]) {
+  color: var(--u3-on-surface) !important;
+}
+
+/* Number badges: Discord red + white, replaced by rust + paper. */
+[class*="numberBadge"] {
+  background: var(--u3-accent) !important;
+  color: var(--u3-on-accent) !important;
+}
+
+time {
+  color: var(--u3-on-surface-muted) !important;
+}
+
+/* Server header and channel title (guild view). */
+[class*="guildBadgeAndName"],
+[class*="guildBadgeAndName"] h2,
+[class*="titleWrapper"],
+[class*="titleWrapper"] h1,
+[class*="title__9293f"] {
+  color: var(--u3-on-surface) !important;
+}
+
+/* Channel list: unread/selected rows were white on paper. */
+[class*="basicChannelRowLink"],
+[class*="basicChannelRowLink"] [class*="name"],
+[class*="name__2ea32"] {
+  color: var(--u3-ink) !important;
+}
+
+/* Boost progress card in the channel header. */
+[class*="textContentContainer"],
+[class*="boostCountText"],
+[class*="text__0d0f9"] {
+  color: var(--u3-on-surface) !important;
+}
+
+/* Message context menu (Добавить реакцию, Переслать, …). */
+[class*="container_a4ac84"],
+[class*="text_a4ac84"] {
+  color: var(--u3-on-surface) !important;
+}
+
+/* Blue "новое" badge on a channel row. */
+[class*="primary_c2b88c"],
+[class*="badge_c2b88c"] {
+  background: var(--u3-accent) !important;
+  color: var(--u3-on-accent) !important;
 }
