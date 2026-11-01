@@ -6,6 +6,7 @@
       ./bat.nix
       ./btop.nix
       ./browser.nix
+      ./deepseek-harness.nix
       ./direnv.nix
       ./discord.nix
       ./fastfetch/fastfetch.nix
