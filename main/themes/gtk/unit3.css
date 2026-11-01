@@ -320,6 +320,47 @@ menuitem:insensitive > box.horizontal label {
   color: @u3_ink_soft;
 }
 
+/* gsimplecal (GtkCalendar). Colloid paints the day numbers cream
+   (#fbf1c7, gtk-3.0/gtk.css:3309) and they land on our paper background.
+   The cells are drawn by the widget itself, not by a label child, so the
+   `label { color: inherit }` rule above cannot reach them: the `calendar`
+   node needs an explicit colour. */
+calendar {
+  background: @u3_paper_light;
+  color: @u3_ink_strong;
+  border: 1px solid @u3_line;
+}
+
+calendar:selected {
+  background: @u3_accent;
+  color: @u3_paper;
+}
+
+calendar.header {
+  color: @u3_ink;
+  border-color: @u3_line;
+}
+
+calendar.highlight {
+  color: @u3_accent;
+}
+
+calendar.button {
+  background: transparent;
+  color: @u3_ink;
+  border: none;
+}
+
+calendar.button:hover {
+  background: alpha(@u3_ink, 0.08);
+  color: @u3_ink_strong;
+}
+
+calendar:indeterminate,
+calendar:disabled {
+  color: @u3_ink_soft;
+}
+
 menubar menuitem label,
 .menubar menuitem label,
 menu menuitem label,
