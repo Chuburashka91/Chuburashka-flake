@@ -8,6 +8,8 @@
       dates = "monthly";
       extraArgs = "--keep 10";
     };
-    flake = "/home/${username}/my-nixos-config";
+    # Workspace root is not the repo: the flake lives in repo/ after the
+    # 2026-11-01 restructure (`main/core/pi.nix` still mounts ../.pi).
+    flake = "/home/${username}/agent-workspace/workspace/rice/repo";
   };
 }

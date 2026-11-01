@@ -153,8 +153,8 @@ The paper palette is the whole UI. Do not describe any surface as "dark NieR"
 except the bar:
 
 - Quickshell/QML widgets carry the paper colours inline (`#463f2e`, `#d6cfb5`,
-  `#6e2a2a`). `main/themes/unit3/quickshell/theme/Theme.qml` is an unused
-  leftover of the old NieR skin — nothing imports it.
+  `#6e2a2a`). The old `quickshell/theme/Theme.qml` singleton (NieR colours,
+  never imported by anything) was deleted during cleanup — do not recreate it.
 - Waybar is intentionally the only dark surface: `rgba(11, 10, 9, 0.92)` in
   `main/home/waybar/style.nix`. It reads as a bar over the wallpaper.
 - `main/home/swaync/style.css` still holds gruvbox colours, but `exec-once`
@@ -192,6 +192,9 @@ except the bar:
 
 - Work happens on branch `dev`; `main` keeps the published state. Merge into
   `main` only after the user has reviewed the branch.
+- Cleanup on `dev`: removed the dead `quickshell/theme/` singleton, the
+  superseded `waybar/style.css` + `config.jsonc` copies and `flake.lock.back`,
+  and fixed the stale `nh` flake path. Details in `main/themes/unit3/NOTES.md`.
 - The DSH wrapper is `main/home/deepseek-harness.nix`, imported in
   `main/home/default.nix`. It is pinned to
   `@deepseek-ai/dsh@0.2.1-rc.5` and uses the official Node.js 24.21.0

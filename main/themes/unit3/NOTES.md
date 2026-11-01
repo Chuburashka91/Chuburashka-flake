@@ -21,8 +21,14 @@ main/themes/unit3/
 ├── pam/qs-lock             # PAM service for the Quickshell lockscreen (L3)
 ├── quickshell/             # QML shell, widgets, scripts, assets
 ├── upstream-packages/      # Arch package lists (reference only)
-└── waybar/                 # config.jsonc, style.css, scripts/
+└── waybar/scripts/         # pomodoro scripts linked by main/home/waybar/scripts.nix
 ```
+
+`waybar/config.jsonc` and `waybar/style.css` were removed: the live sources are
+`main/home/waybar/settings.nix` and `main/home/waybar/style.nix`. The same
+applies to the old `quickshell/theme/Theme.qml` singleton (NieR colours, never
+imported) — deleted. Files under `hypr/`, `upstream-packages/` and
+`UPSTREAM_README.md` are kept as upstream reference only.
 
 This directory is the source of truth: `main/home/quickshell.nix` **copies** it
 to `~/.config/quickshell` on activation (writable, so generated videos work).

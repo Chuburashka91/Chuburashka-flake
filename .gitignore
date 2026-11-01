@@ -12,5 +12,4 @@ main/hardware-configuration.nix
 # build artifacts
 /result
 /result-*
-flake.lock.back
 .installer-backup-*/
