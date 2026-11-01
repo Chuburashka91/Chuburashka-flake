@@ -149,3 +149,34 @@ html.client_chat_frame ::-webkit-scrollbar-thumb:hover
 {
 	background: #6e2a2a !important;
 }
+
+/* Chat window. Adwaita-for-Steam styles the chat layout but leaves Steam's
+ * dark-theme text colours in place: #c1c6cf body text and #6dcff6 links on
+ * paper. Force ink/rust in the history only — .chatEntry is the dark input
+ * bar, which keeps its own foreground. */
+html.client_chat_frame div.chatHistory,
+html.client_chat_frame div.chatHistory *,
+body.DesktopUI div.chatHistory,
+body.DesktopUI div.chatHistory *
+{
+	color: #2e2a1f !important;
+}
+
+html.client_chat_frame div.chatHistory a,
+html.client_chat_frame div.chatHistory a *,
+body.DesktopUI div.chatHistory a,
+body.DesktopUI div.chatHistory a *
+{
+	color: #6e2a2a !important;
+}
+
+html.client_chat_frame div.chatHistory .msgText,
+html.client_chat_frame div.chatHistory .ChatSpeaker,
+html.client_chat_frame div.chatHistory .msg.timeDivision,
+body.DesktopUI div.chatHistory .msgText,
+body.DesktopUI div.chatHistory .ChatSpeaker,
+body.DesktopUI div.chatHistory .msg.timeDivision
+{
+	opacity: 1 !important;
+	filter: none !important;
+}

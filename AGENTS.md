@@ -193,6 +193,10 @@ except the bar:
   - AdwSteamGtk 0.8.0 passes `--custom-css` without a path; skin 4.4 needs one.
     `gaming.nix` patches that call until nixpkgs ships 0.9.1+. The GUI stays
     usable for a manual re-apply and for editing the CSS.
+  - Chat window: the skin styles the layout but leaves Steam's dark-theme text
+    (`.msgText` `#c1c6cf`, links `#6dcff6`) on paper. `unit3.css` forces
+    `.chatHistory` to ink/rust; the dark `.chatEntry` input bar is intentionally
+    left alone.
 - btop:
   - `main/themes/btop/unit3.theme`
   - `main/home/btop.nix`
